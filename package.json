@@ -1,11 +1,15 @@
 {
   "name": "opensea-scraper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scraping accurate floor prices from opensea, because the API returns inacurate floor prices.",
   "main": "src/OpenseaScraper.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "demo": "node demo.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dcts/opensea-scraper.git"
   },
   "keywords": [
     "scraper",
