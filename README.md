@@ -1,6 +1,6 @@
 # Opensea Scraper
 
-Scraping NFT floor prices from opensea, because the Opensea API returns inaccurate floor prices.
+Scraping NFT floor prices from opensea, because the Opensea API returns inaccurate floor prices. With this utility you get the actual floor price, that is the lowest offer currently availible.
 ![inaccurate-floor-prices](https://user-images.githubusercontent.com/44790691/131232128-0601f7d4-a051-4e8e-9963-bd0ba0ea2852.png)
 
 # Install
