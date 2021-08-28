@@ -1,0 +1,5 @@
+# dependencies
+node_modules
+
+# VS code history plugin
+.history

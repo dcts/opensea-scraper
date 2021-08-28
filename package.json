@@ -1,0 +1,26 @@
+{
+  "name": "opensea-scraper",
+  "version": "1.0.0",
+  "description": "Scraping accurate floor prices from opensea, because the API returns inacurate floor prices.",
+  "main": "src/OpenseaScraper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "demo": "node demo.js"
+  },
+  "keywords": [
+    "scraper",
+    "opensea",
+    "nft",
+    "nfts",
+    "cryptocurrency",
+    "erc-721"
+  ],
+  "author": "dcts",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "puppeteer": "^10.2.0",
+    "puppeteer-extra": "^3.1.18",
+    "puppeteer-extra-plugin-stealth": "^2.7.8"
+  }
+}
