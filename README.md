@@ -16,7 +16,7 @@ const OpenseaScraper = require("opensea-scraper");
 // which nft project to scrape?
 const slug = "cool-cats-nft";
 
-// get the lowest availible price on Opensea
+// scrape the correct floor price of an actual offer that exists on opensea
 const floorPrice = await OpenseaScraper.floorPrice(slug);
 
 // get basic info (from the opensea API)
