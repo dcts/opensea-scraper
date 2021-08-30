@@ -23,8 +23,15 @@ class ScrapeOpensea {
     const floorPrice = await page.evaluate(() => {
       const cardsNodeList = document.querySelectorAll(".Asset--anchor");
       const cardsArray = Array.prototype.slice.call(cardsNodeList); // you cannot use .map on a nodeList, we need to transform it to an array
-      const priceStr = cardsArray[0].querySelector(".Price--amount").textContent;
-      return Number(priceStr.split(",").join("."));
+      const floorPrices = cardsArray.map(card => {
+        try {
+          const priceStr = card.querySelector(".Price--amount").textContent;
+          return Number(priceStr.split(",").join("."));
+        } catch(err) {
+          return undefined;
+        }
+      }).filter(val => val); // filter out invalid (undefined) values
+      return Math.min(...floorPrices); // sometimes the order of elements is not accurate on Opensea, thats why we need to get the lowest value
     });
     await browser.close();
     return floorPrice;
