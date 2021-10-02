@@ -1,10 +1,26 @@
+# ⚠ Important Note
+⚠ Opensea updated their API to now finally also return accurate and real-time floor prices! 🎉🥳 So we do not need any scraping of floor prices anymore! Here is a short code snipped on how to get floor prices for each nft project listed on opensea:
+```js
+const axios = require("axios");
+
+async function getFloorPrice(slug) {
+  try {
+    const url = `https://api.opensea.io/collection/${slug}`;
+    const response = await axios.get(url);
+    return response.data.collection.stats.floor_price;
+  } catch(err) {
+    console.log(err);
+    return undefined;
+  }
+}
+
+const result = await getFloorPrice("lostpoets");
+const result = await getFloorPrice("treeverse");
+const result = await getFloorPrice("cool-cats-nft");
+```
+
+See below the old repository👇👇👇
 # Opensea Scraper
-
-Scraping NFT floor prices from opensea, because the Opensea API returns inaccurate floor prices. With this utility you get the actual floor price, that is the lowest offer currently availible.
-
-**EDIT**: This used to be inaccurate, but should now be fixed, see this twitter post: https://twitter.com/natechastain/status/1435050050028281859. But some time it did not work for me, so I kept the current implementation, as I think its more accurate. Any suggestions or observations please open an Issue.
-![inaccurate-floor-prices](https://user-images.githubusercontent.com/44790691/131232128-0601f7d4-a051-4e8e-9963-bd0ba0ea2852.png)
-
 ## Install
 
 ```bash
