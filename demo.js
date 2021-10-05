@@ -1,7 +1,7 @@
 const OpenseaScraper = require("./src/OpenseaScraper.js");
 
 // which NFT project to scrape?
-const slug = "cool-cats-nft";
+const slug = "sandbox";
 console.log(`=== ${slug} ===`);
 
 (async () => {
@@ -12,7 +12,7 @@ console.log(`=== ${slug} ===`);
 
   // get the current floor price
   console.log("scraping floor price...")
-  const floorPrice = await OpenseaScraper.floorPrice(slug);
+  const floorPrice = await OpenseaScraper.floorPrice(slug, "debug");
   console.log(`...done! 🔥 \nfloor price = ${floorPrice} ETH`);
 
   console.log("\nDEMO ENDED 🥳")
