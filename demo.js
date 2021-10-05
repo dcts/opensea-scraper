@@ -1,7 +1,7 @@
 const OpenseaScraper = require("./src/OpenseaScraper.js");
 
 // which NFT project to scrape?
-const slug = "sandbox";
+const slug = "cool-cats-nft";
 console.log(`=== ${slug} ===`);
 
 (async () => {
