@@ -1,7 +1,9 @@
 # Opensea Scraper
 
-Scraping NFT floor prices from opensea, because the Opensea API returns inaccurate floor prices. With this utility you get the actual floor price, that is the lowest offer currently availible.
-![inaccurate-floor-prices](https://user-images.githubusercontent.com/44790691/131232128-0601f7d4-a051-4e8e-9963-bd0ba0ea2852.png)
+⚠ **Problem**: NFT floor prices returned by the Opensea API are not accurate (they lag at least 2 hours, sometimes even a full day it seems). Here is an example of cool-cats floor price actually being 8.5, but the API returns 9.4: 
+![opensea-inaccuracy](https://user-images.githubusercontent.com/44790691/137519280-a765c8ef-d35f-4ef6-b5f1-04c31915b37a.png)
+
+With this utility you can scrape the correct NFT floor prices directly from opensea by using puppeteer.
 
 ## Install
 
