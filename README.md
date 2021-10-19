@@ -61,3 +61,5 @@ Open PR or issue if you would like to have more features added.
 
 ## To Do List ✅
 - [ ] Tests: we need tests to ensure that design changes in the Opensea Webapp do not break the scraper code. 
+- [ ] `OpenseaScraper.slugs(n)`: function to fetch all slugs taken from the rankings page: https://opensea.io/rankings?sortBy=total_volume (`n` is the number of pages to scrape) 
+- [ ] `OpenseaScraper.getOffers(slug, n)`: see [issue#2](https://github.com/dcts/opensea-scraper/issues/2)
