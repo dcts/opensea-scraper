@@ -58,3 +58,6 @@ const result = await getFloorPrice("cool-cats-nft");
 ## Contribute
 
 Open PR or issue if you would like to have more features added.
+
+## To Do List ✅
+- [ ] Tests: we need tests to ensure that design changes in the Opensea Webapp do not break the scraper code. 
