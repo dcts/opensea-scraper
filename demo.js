@@ -1,4 +1,4 @@
-const OpenseaScraper = require("./src/OpenseaScraper.js");
+const OpenseaScraper = require("./src/index.js");
 
 // which NFT project to scrape?
 const slug = "cool-cats-nft";
