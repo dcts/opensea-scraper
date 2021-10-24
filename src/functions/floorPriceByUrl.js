@@ -23,7 +23,9 @@ const floorPriceByUrl = async (url, mode = "headless") => {
   });
   const page = await browser.newPage();
   await page.goto(url);
-  await page.waitForTimeout(5);
+
+  // ...🚧 waiting for cloudflare to resolve
+  await page.waitForSelector('.cf-browser-verification', {hidden: true});
 
   const floorPrice = await page.evaluate(() => {
     const cardsNodeList = document.querySelectorAll(".Asset--anchor .AssetCardFooter--price-amount");
