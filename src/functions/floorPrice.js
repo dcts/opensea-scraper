@@ -19,7 +19,9 @@ const scrapeFloorPrice = async (slug, mode = "headless") => {
   });
   const page = await browser.newPage();
   await page.goto(`https://opensea.io/collection/${slug}?search[sortAscending]=true&search[sortBy]=PRICE&search[toggles][0]=BUY_NOW`);
-  await page.waitForTimeout(5);
+
+  // ...🚧 waiting for cloudflare to resolve
+  await page.waitForSelector('.cf-browser-verification', {hidden: true});
 
   const floorPrice = await page.evaluate(() => {
     const cardsNodeList = document.querySelectorAll(".Asset--anchor .AssetCardFooter--price-amount");
