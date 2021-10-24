@@ -1,4 +1,5 @@
 /**
+ * === HELPER FUNCTIONS FOR : OpenseaScraper.rankings() ===
  * These are all functions that need to be exposed inside
  * puppeteers page.evaluate() function (inside the chromium instance)
  * additionally to the functions we also need a global variable
@@ -13,8 +14,8 @@
 const dict = {};
 
 // fetches collections that are currently visible on the page
-// and save them to a dictionary, with the slug being the key
-// when a collection is already in the dict it won't be overwritten
+// and save them to the passed dictionary, with the slug being the key.
+// When a collection is already in the dict it will be overwritten.
 function fetchCollections(dict) {
   const rowsNodeList = document.querySelectorAll('[role=list] > div > a');
   const rows = Array.prototype.slice.call(rowsNodeList);
