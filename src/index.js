@@ -1,13 +1,13 @@
+const basicInfo = require("./functions/basicInfo.js");
 const floorPrice = require("./functions/floorPrice.js");
 const floorPriceByUrl = require("./functions/floorPriceByUrl.js");
-const offers = require("./functions/offers.js");
-const basicInfo = require("./functions/basicInfo.js");
+const rankings = require("./functions/rankings.js");
 
 const OpenseaScraper = {
   basicInfo,
   floorPrice,
   floorPriceByUrl,
-  offers,
+  rankings,
 };
 
 module.exports = OpenseaScraper;
