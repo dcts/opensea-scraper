@@ -12,7 +12,6 @@ puppeteer.use(StealthPlugin());
  *    and avoid closing browser when the function ends
  */
 const scrapeFloorPrice = async (slug, mode = "headless") => {
-  // puppeteer usage as normal
   const browser = await puppeteer.launch({
     headless: mode === "debug" ? false : true,
     args: ['--start-maximized'],
@@ -44,7 +43,7 @@ const scrapeFloorPrice = async (slug, mode = "headless") => {
     }
     // sometimes the order of elements is not accurate on Opensea,
     // thats why we need to minimize get the lowest value
-    // IMPORTANT: spread operator is needed for Math.min() to work with arrays
+    // REMARK: do not remove spread operator, see explenation here: https://dev.to/thebronxsystem/math-min-array-needs-spread-operator-1oe7
     const floorPrice = Math.min(...floorPrices);
     return {
       amount: floorPrice,
