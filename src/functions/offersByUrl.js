@@ -24,11 +24,11 @@ const offersByUrl = async (url, resultSize = 10, mode = "headless") => {
   await page.addScriptTag({path: require.resolve("../helpers/offersHelperFunctions.js")});
 
   // scrape offers until target resultsize reached or bottom of page reached
-  const offers = await scrollAndFetchOffers(page, resultSize);
+  const offersByUrl = await scrollAndFetchOffers(page, resultSize);
   if (mode !== "debug") {
     await browser.close();
   }
-  const offersSorted = offers.sort((a,b) => a.floorPrice.amount - b.floorPrice.amount)
+  const offersSorted = offersByUrl.sort((a,b) => a.floorPrice.amount - b.floorPrice.amount)
   return offersSorted.slice(0, resultSize);
 }
 
