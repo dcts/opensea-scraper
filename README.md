@@ -89,6 +89,6 @@ const result = await getFloorPrice("cool-cats-nft");
 
 Open PR or issue if you would like to have more features added.
 
-
 # Python Alternative
 ℹ if you want a solution to scrape floor prices without using puppeteer, take a look at this python solution: https://gist.github.com/dcts/a1b689b88e61fe350a446a5799209c9b
+
