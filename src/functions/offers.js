@@ -6,9 +6,18 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
 /**
- *
+ * scrapes opensea offers for a given collection.
+ * Offers hold additional information, not only the floor price,
+ * example offer object:
+ * {
+ *   floorPrice: {
+ *     amount: 1.2,
+ *     currency: "ETH"
+ *   },
+ *   name: "cool cat #231",
+ *   tokenId: 234
+ * }
  */
-// const offers = async (slug, resultSize, mode = "headless") => {
 const offers = async (slug, resultSize = 10, mode = "headless") => {
   const browser = await puppeteer.launch({
     headless: mode === "debug" ? false : true,

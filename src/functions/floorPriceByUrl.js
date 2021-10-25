@@ -16,7 +16,6 @@ puppeteer.use(StealthPlugin());
  *    and avoid closing browser when the function ends
  */
 const floorPriceByUrl = async (url, mode = "headless") => {
-  // puppeteer usage as normal
   const browser = await puppeteer.launch({
     headless: mode === "debug" ? false : true,
     args: ['--start-maximized'],
