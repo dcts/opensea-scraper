@@ -51,7 +51,7 @@ const floorPriceByUrl = async (url, mode = "headless") => {
     // IMPORTANT: spread operator is needed for Math.min() to work with arrays
     const floorPrice = Math.min(...floorPrices);
     return {
-      floorPrice: floorPrice,
+      amount: floorPrice,
       currency: "ETH",
     }
   });
