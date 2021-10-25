@@ -9,13 +9,13 @@ puppeteer.use(StealthPlugin());
  *
  */
 // const offers = async (slug, resultSize, mode = "headless") => {
-const offers = async (slug, resultSize = 10, mode = "headless") => {
+const offersByUrl = async (url, resultSize = 10, mode = "headless") => {
   const browser = await puppeteer.launch({
     headless: mode === "debug" ? false : true,
     args: ['--start-maximized'],
   });
   const page = await browser.newPage();
-  await page.goto(`https://opensea.io/collection/${slug}?search[sortAscending]=true&search[sortBy]=PRICE&search[toggles][0]=BUY_NOW`);
+  await page.goto(url);
 
   // ...🚧 waiting for cloudflare to resolve
   await page.waitForSelector('.cf-browser-verification', {hidden: true});
@@ -24,11 +24,11 @@ const offers = async (slug, resultSize = 10, mode = "headless") => {
   await page.addScriptTag({path: require.resolve("../helpers/offersHelperFunctions.js")});
 
   // scrape offers until target resultsize reached or bottom of page reached
-  const offers = await scrollAndFetchOffers(page, resultSize);
+  const offersByUrl = await scrollAndFetchOffers(page, resultSize);
   if (mode !== "debug") {
     await browser.close();
   }
-  const offersSorted = offers.sort((a,b) => a.floorPrice.amount - b.floorPrice.amount)
+  const offersSorted = offersByUrl.sort((a,b) => a.floorPrice.amount - b.floorPrice.amount)
   return offersSorted.slice(0, resultSize);
 }
 
@@ -59,4 +59,4 @@ async function scrollAndFetchOffers(page, resultSize) {
 }
 
 
-module.exports = offers;
+module.exports = offersByUrl;
