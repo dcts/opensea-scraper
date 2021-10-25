@@ -21,7 +21,7 @@ const offers = async (slug, resultSize = 10, mode = "headless") => {
   await page.waitForSelector('.cf-browser-verification', {hidden: true});
 
   // EXPOSE ALL HELPER FUNCTIONS
-  await page.addScriptTag({path: "./src/helpers/offersHelperFunctions.js"});
+  await page.addScriptTag({path: require.resolve("../helpers/offersHelperFunctions.js")});
 
   // scrape offers until target resultsize reached or bottom of page reached
   const offers = await scrollAndFetchOffers(page, resultSize);
