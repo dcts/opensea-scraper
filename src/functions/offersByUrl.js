@@ -6,9 +6,18 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
 /**
- *
+ * scrapes opensea offers by URL instad of slug.
+ * Offers hold additional information, not only the floor price,
+ * example offer object:
+ * {
+ *   floorPrice: {
+ *     amount: 1.2,
+ *     currency: "ETH"
+ *   },
+ *   name: "cool cat #231",
+ *   tokenId: 234
+ * }
  */
-// const offers = async (slug, resultSize, mode = "headless") => {
 const offersByUrl = async (url, resultSize = 10, mode = "headless") => {
   const browser = await puppeteer.launch({
     headless: mode === "debug" ? false : true,
@@ -20,7 +29,7 @@ const offersByUrl = async (url, resultSize = 10, mode = "headless") => {
   // ...🚧 waiting for cloudflare to resolve
   await page.waitForSelector('.cf-browser-verification', {hidden: true});
 
-  // EXPOSE ALL HELPER FUNCTIONS
+  // expose all helper functions
   await page.addScriptTag({path: require.resolve("../helpers/offersHelperFunctions.js")});
 
   // scrape offers until target resultsize reached or bottom of page reached
