@@ -3,3 +3,6 @@ node_modules
 
 # VS code history plugin
 .history
+
+# notes folder
+notes
