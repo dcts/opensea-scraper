@@ -15,14 +15,18 @@ puppeteer.use(StealthPlugin());
  * logs = displays status report to console if true
  * mode = "headless" or "debug".
  */
-const rankings = async (nPages = 1, mode = "headless") => {
+const rankings = async (nPages = 1, opts = {}) => {
+  const { browser: providedBrowser, mode = "headless" } = opts;
   const logs = true;
   const headless = mode !== "debug";
   logs && console.log(`=== OpenseaScraper.rankings() ===\n...fetching ${nPages} pages (= top ${nPages*100} collections)`);
-  const browser = await puppeteer.launch({
-    headless: headless,
-    args: ['--start-maximized'],
-  });
+  let browser = providedBrowser;
+  if (!browser) {
+    browser = await puppeteer.launch({
+      headless: mode === "debug" ? false : true,
+      args: ['--start-maximized'],
+    });
+  }
   const page = await browser.newPage();
   const url = "https://opensea.io/rankings?sortBy=total_volume";
   logs && console.log("...opening url: " + url);
@@ -46,7 +50,10 @@ const rankings = async (nPages = 1, mode = "headless") => {
     logs && console.log("...scrolling to bottom and fetching collections. Items fetched so far: " + Object.keys(dict).length);
     dict = await scrollToBottomAndFetchCollections(page);
   }
-  await browser.close();
+  if (!providedBrowser) {
+    await browser.close();
+  }
+
   // transform dict to array + remove invalid results
   const filtered = Object.values(dict).filter(o => o.rank !== 0 && o.name !== "");
   logs && console.log("...🥳 DONE. Total Collections fetched: " + Object.keys(dict).length);

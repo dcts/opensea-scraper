@@ -11,12 +11,15 @@ puppeteer.use(StealthPlugin());
  * => run in debug mode to show browser interaction (no headless mode)
  *    and avoid closing browser when the function ends
  */
-const scrapeFloorPrice = async (slug, mode = "headless") => {
-  // puppeteer usage as normal
-  const browser = await puppeteer.launch({
-    headless: mode === "debug" ? false : true,
-    args: ['--start-maximized'],
-  });
+const scrapeFloorPrice = async (slug, opts = {}) => {
+  const { browser: providedBrowser, mode = "headless" } = opts;
+  let browser = providedBrowser;
+  if (!browser) {
+    browser = await puppeteer.launch({
+      headless: mode === "debug" ? false : true,
+      args: ['--start-maximized'],
+    });
+  }
   const page = await browser.newPage();
   await page.goto(`https://opensea.io/collection/${slug}?search[sortAscending]=true&search[sortBy]=PRICE&search[toggles][0]=BUY_NOW`);
 
@@ -52,7 +55,7 @@ const scrapeFloorPrice = async (slug, mode = "headless") => {
     }
   });
 
-  if (mode !== "debug") {
+  if (!providedBrowser) {
     await browser.close();
   }
   return floorPrice;
