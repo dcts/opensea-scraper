@@ -3,14 +3,14 @@ const floorPrice = require("./functions/floorPrice.js");
 const floorPriceByUrl = require("./functions/floorPriceByUrl.js");
 const rankings = require("./functions/rankings.js");
 const offers = require("./functions/offers.js");
+const getInstanceWithPuppeteer = require("./functions/getInstanceWithPuppeteer.js");
 
-const OpenseaScraper = {
+module.exports = {
   basicInfo,
   floorPrice,
   floorPriceByUrl,
   rankings,
   offers,
+  getInstanceWithPuppeteer
 };
-
-module.exports = OpenseaScraper;
 
