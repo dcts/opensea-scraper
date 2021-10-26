@@ -1,12 +1,13 @@
 {
   "name": "opensea-scraper",
-  "version": "3.0.0",
+  "version": "3.1.1",
   "description": "Scraping accurate floor prices from opensea, because the API returns inacurate floor prices.",
   "main": "src/index.js",
   "typings": "./index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "demo": "node demo/index.js"
+    "demo:basic": "node demo/basic.js",
+    "demo:withInstance": "node demo/withInstance.js"
   },
   "repository": {
     "type": "git",

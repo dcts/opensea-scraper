@@ -8,6 +8,7 @@ const floorPrice = require("./floorPrice.js");
 const floorPriceByUrl = require("./floorPriceByUrl.js");
 const rankings = require("./rankings.js");
 const offers = require("./offers.js");
+const offersByUrl = require("./offersByUrl.js");
 
 async function OpenseaScraperInstance({ mode } = {}) {
   const browser = await puppeteer.launch({
@@ -22,6 +23,7 @@ async function OpenseaScraperInstance({ mode } = {}) {
     floorPriceByUrl: (...params) => floorPriceByUrl(...params, { ...(params && params.opts ? params.opts : {}), browser}),
     rankings: (...params) => rankings(...params, { ...(params && params.opts ? params.opts : {}), browser}),
     offers: (...params) => offers(...params, { ...(params && params.opts ? params.opts : {}), browser}),
+    offersByUrl: (...params) => offersByUrl(...params, { ...(params && params.opts ? params.opts : {}), browser}),
   }
 }
 

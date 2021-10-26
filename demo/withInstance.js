@@ -6,7 +6,7 @@ const OpenseaScraper = require("../src/index.js");
 const slug = "cool-cats-nft";
 console.log(`===>>> ${slug} <<<===`);
 
-async function run() {
+(async function run() {
   const osScraperInstance = await OpenseaScraper.getInstanceWithPuppeteer();
 
   // get the current floor price
@@ -23,9 +23,16 @@ async function run() {
 
   // get offers
   console.log(`\n\n\n\n✅ === osScraperInstance.offers(slug, resultSize) ===`);
-  const resultSize = 3;
+  let resultSize = 3;
   const offers = await osScraperInstance.offers(slug, resultSize);
   console.log(`scraped ${offers.length} offers: ${offers.map(o => `${o.name} : ${o.floorPrice.amount} ${o.floorPrice.currency}`).join(" | ")}`);
+
+  // get offersByUrl
+  console.log(`\n\n\n\n✅ === osScraperInstance.offersByUrl(url, resultSize) ===`);
+  resultSize = 3;
+  const url = "https://opensea.io/collection/sandbox?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Type&search[stringTraits][0][values][0]=Land&search[toggles][0]=BUY_NOW";
+  const offersByUrl = await osScraperInstance.offersByUrl(url, resultSize);
+  console.log(`scraped ${offersByUrl.length} offers: ${offersByUrl.map(o => `${o.tokenName} : ${o.floorPrice.amount} ${o.floorPrice.currency}`).join(" | ")}`);
 
   // scrape rankings => https://opensea.io/rankings?sortBy=total_volume
   console.log(`\n\n\n\n✅ === osScraperInstance.rankings(nPages) ===`);
@@ -35,7 +42,5 @@ async function run() {
 
   await osScraperInstance.close();
   console.log("\n🎉 DEMO ENDED 🥳");
-}
-
-module.exports = run;
+})();
 

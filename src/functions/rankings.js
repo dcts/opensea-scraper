@@ -9,10 +9,6 @@ puppeteer.use(StealthPlugin());
  * Scrapes all collections from the Rankings page at https://opensea.io/rankings?sortBy=total_volume
  * nPages = how many pages should be scraped?
  *   (by default only scrape 1 page = 100 collections)
- * timeout = how long to wait for page content, in ms.
- *   (default 3 seconds = 3000 ms). Higher number makes algorithm slower,
- *   but might help when having a slower connection
- * logs = displays status report to console if true
  * mode = "headless" or "debug".
  */
 const rankings = async (nPages = 1, opts = {}) => {
@@ -35,11 +31,9 @@ const rankings = async (nPages = 1, opts = {}) => {
   logs && console.log("...🚧 waiting for cloudflare to resolve");
   await page.waitForSelector('.cf-browser-verification', {hidden: true});
 
-  // EXPOSE ALL HELPER FUNCTIONS
   logs && console.log("...exposing helper functions through script tag")
   await page.addScriptTag({path: "./src/helpers/rankingsHelperFunctions.js"});
 
-  // SCROLL TO BOTTOM AND FETCH COLLECTIONS
   logs && console.log("...scrolling to bottom and fetching collections.");
   let dict = await scrollToBottomAndFetchCollections(page);
 
@@ -64,9 +58,8 @@ const rankings = async (nPages = 1, opts = {}) => {
 module.exports = rankings;
 
 
-
 /**
- * HELPER FUNCTIONS
+ * Helper Functions for OpenseaScraper.rankings()
  */
 async function clickNextPageButton(page) {
   await page.click('[value=arrow_forward_ios]');

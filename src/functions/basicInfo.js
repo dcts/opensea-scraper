@@ -2,7 +2,7 @@ const axios = require("axios");
 /**
  * gets basic info of a collection from the API
  * => api.opensea.io/collection/{slug}
- * no scraping is involved here
+ * no puppeteer is involved here
  */
 const basicInfo = async (slug) => {
   const response = await axios.get(`https://api.opensea.io/collection/${slug}`);
@@ -31,7 +31,6 @@ const basicInfo = async (slug) => {
   };
 }
 
-// HELPER FUNCTIONS FOR ScrapeOpensea.basicInfo()
 function _getName(collectionObj) {
   try {
     return collectionObj.name;
