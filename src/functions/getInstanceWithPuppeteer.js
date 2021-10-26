@@ -10,7 +10,7 @@ const rankings = require("./rankings.js");
 const offers = require("./offers.js");
 const offersByUrl = require("./offersByUrl.js");
 
-async function OpenseaScraperInstance({ mode } = {}) {
+async function getInstanceWithPuppeteer({ mode } = {}) {
   const browser = await puppeteer.launch({
     headless: mode === "debug" ? false : true,
     args: ['--start-maximized'],
@@ -27,4 +27,4 @@ async function OpenseaScraperInstance({ mode } = {}) {
   }
 }
 
-module.exports = OpenseaScraperInstance
+module.exports = getInstanceWithPuppeteer

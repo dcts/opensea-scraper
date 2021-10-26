@@ -1,5 +1,3 @@
-const bluebird = require("bluebird");
-
 const OpenseaScraper = require("../src/index.js");
 
 // which NFT project to scrape?
