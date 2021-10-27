@@ -7,15 +7,17 @@ puppeteer.use(StealthPlugin());
 
 /**
  * scrapes opensea offers by URL instad of slug.
- * Offers hold additional information, not only the floor price,
+ * returns object with keys "offers" (array) and "stats" (object with metadata).
+ * offers: array of offer objects that hold additional information, not only the floor price,
  * example offer object:
  * {
  *   floorPrice: {
  *     amount: 1.2,
- *     currency: "ETH"
+ *     currency: "ETH",
  *   },
  *   name: "cool cat #231",
- *   tokenId: 234
+ *   tokenId: 234,
+ *   offerUrl: "https://opensea.io/assets/0x1a92f7381b9f03921564a437210bb9396471050c/231",
  * }
  */
 const offersByUrl = async (url, resultSize = 10, mode = "headless") => {
