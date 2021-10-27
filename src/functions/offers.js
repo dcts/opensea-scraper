@@ -35,14 +35,22 @@ const offers = async (slug, resultSize = 10, mode = "headless") => {
   await page.addScriptTag({path: require.resolve("../helpers/offersHelperFunctions.js")});
 
   // scrape offers until target resultsize reached or bottom of page reached
-  const offers = await _scrollAndFetchOffers(page, resultSize);
+  const [offers, totalOffers] = await Promise.all([
+    _scrollAndFetchOffers(page, resultSize),
+    _extractTotalOffers(page),
+  ]);
+
   if (mode !== "debug") {
     await browser.close();
   }
   const offersSorted = offers.sort((a,b) => a.floorPrice.amount - b.floorPrice.amount)
-  return offersSorted.slice(0, resultSize);
+  return {
+    offers: offersSorted.slice(0, resultSize),
+    stats: {
+      totalOffers: totalOffers,
+    }
+  };
 }
-
 
 async function _scrollAndFetchOffers(page, resultSize) {
   return await page.evaluate((resultSize) => new Promise((resolve) => {
@@ -69,5 +77,16 @@ async function _scrollAndFetchOffers(page, resultSize) {
   }), resultSize);
 }
 
+async function _extractTotalOffers(page) {
+  try {
+    // set timeout to 1 sec, no need to extensively wait since page should be loaded already
+    const element = await page.waitForSelector('.AssetSearchView--results-count', {timeout: 1000});
+    const resultsText = await element.evaluate(el => el.textContent); // grab the textContent from the element, by evaluating this function in the browser context
+    const dotsRemoved = resultsText.replace(/\./g,'');
+    return Number(dotsRemoved.split(" ")[0]);
+  } catch (err) {
+    return undefined;
+  }
+}
 
 module.exports = offers;
