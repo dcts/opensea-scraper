@@ -4,6 +4,11 @@ interface IRanking {
   rank: number;
 }
 
+interface IOfferRturnValue {
+  offers: IOffer[];
+  stats: { totalOffers: number };
+}
+
 interface IOffer {
   floorPrice: { amount: number; currency: string };
   tokenId: number;
@@ -21,15 +26,18 @@ declare module "opensea-scraper" {
     slug: string,
     mode?: string
   ): Promise<number | undefined>;
-  export function rankings(nPages?: string, mode?: string): Promise<IRanking[]>;
-  export function offers(
+  export function rankings(
     nPages?: string,
+    mode?: string
+  ): Promise<IRanking[]>;
+  export function offers(
+    slug: string,
     resultSize?: number,
     mode?: string
-  ): Promise<IOffer[]>;
+  ): Promise<IOfferRturnValue>;
   export function offersByUrl(
     url: string,
     resultSize?: number,
     mode?: string
-  ): Promise<IOffer[]>;
+  ): Promise<IOfferRturnValue>;
 }
