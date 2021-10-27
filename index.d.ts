@@ -11,6 +11,11 @@ interface IOffer {
   offerUrl: string;
 }
 
+interface IOfferRturnValue {
+  offers: IOffer[];
+  stats: { totalOffersCount: number };
+}
+
 declare module "opensea-scraper" {
   export function basicInfo(slug: string): Promise<Record<string, any>>;
   export function floorPrice(
@@ -26,10 +31,10 @@ declare module "opensea-scraper" {
     nPages?: string,
     resultSize?: number,
     mode?: string
-  ): Promise<IOffer[]>;
+  ): Promise<IOfferRturnValue>;
   export function offersByUrl(
     url: string,
     resultSize?: number,
     mode?: string
-  ): Promise<IOffer[]>;
+  ): Promise<IOfferRturnValue>;
 }
