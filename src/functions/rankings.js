@@ -31,14 +31,14 @@ const rankings = async (nPages = 1, mode = "headless") => {
   await page.addScriptTag({path: "./src/helpers/rankingsHelperFunctions.js"});
 
   logs && console.log("...scrolling to bottom and fetching collections.");
-  let dict = await scrollToBottomAndFetchCollections(page);
+  let dict = await _scrollToBottomAndFetchCollections(page);
 
   // scrape n pages
   for (let i = 0; i < nPages - 1; i++) {
-    await clickNextPageButton(page);
+    await _clickNextPageButton(page);
     await page.waitForSelector('.Image--image');
     logs && console.log("...scrolling to bottom and fetching collections. Items fetched so far: " + Object.keys(dict).length);
-    dict = await scrollToBottomAndFetchCollections(page);
+    dict = await _scrollToBottomAndFetchCollections(page);
   }
   await browser.close();
   // transform dict to array + remove invalid results
@@ -54,10 +54,10 @@ module.exports = rankings;
 /**
  * Helper Functions for OpenseaScraper.rankings()
  */
-async function clickNextPageButton(page) {
+async function _clickNextPageButton(page) {
   await page.click('[value=arrow_forward_ios]');
 }
-async function scrollToBottomAndFetchCollections(page) {
+async function _scrollToBottomAndFetchCollections(page) {
   return await page.evaluate(() => new Promise((resolve) => {
     // keep in mind inside the browser context we have the global variable "dict" initialized
     // defined inside src/helpers/rankingsHelperFunctions.js

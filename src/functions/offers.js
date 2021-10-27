@@ -35,7 +35,7 @@ const offers = async (slug, resultSize = 10, mode = "headless") => {
   await page.addScriptTag({path: require.resolve("../helpers/offersHelperFunctions.js")});
 
   // scrape offers until target resultsize reached or bottom of page reached
-  const offers = await scrollAndFetchOffers(page, resultSize);
+  const offers = await _scrollAndFetchOffers(page, resultSize);
   if (mode !== "debug") {
     await browser.close();
   }
@@ -44,7 +44,7 @@ const offers = async (slug, resultSize = 10, mode = "headless") => {
 }
 
 
-async function scrollAndFetchOffers(page, resultSize) {
+async function _scrollAndFetchOffers(page, resultSize) {
   return await page.evaluate((resultSize) => new Promise((resolve) => {
     // keep in mind inside the browser context we have the global variable "dict" initialized
     // defined inside src/helpers/rankingsHelperFunctions.js
