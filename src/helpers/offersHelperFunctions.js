@@ -44,7 +44,7 @@ function _extractTokenId(card) {
   try {
     const href = card.getAttribute("href") || "";
     const tokenId = href.split("/").slice(-1).pop();
-    return Number(tokenId);
+    return tokenId === "" ? undefined : Number(tokenId); // catch case where tokenId is empty string
   } catch(err) {
     return undefined;
   }
