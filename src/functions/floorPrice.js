@@ -11,7 +11,7 @@ puppeteer.use(StealthPlugin());
  * => run in debug mode to show browser interaction (no headless mode)
  *    and avoid closing browser when the function ends
  */
-const scrapeFloorPrice = async (slug, mode = "headless") => {
+const floorPrice = async (slug, mode = "headless") => {
   const browser = await puppeteer.launch({
     headless: mode === "debug" ? false : true,
     args: ['--start-maximized'],
@@ -57,4 +57,4 @@ const scrapeFloorPrice = async (slug, mode = "headless") => {
   return floorPrice;
 }
 
-module.exports = scrapeFloorPrice;
+module.exports = floorPrice;
