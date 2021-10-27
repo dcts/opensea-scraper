@@ -22,7 +22,7 @@ function fetchOffers(dict) {
   cardsArray.forEach(card => {
     const floorPrice = _extractFloorPrice(card);
     const tokenName = _extractTokenName(card);
-    const tokenId = _extractTokenId(tokenName);
+    const tokenId = _extractTokenId(card);
     if (floorPrice && tokenName) {
       const uniqIdentifier = `${tokenName}_${tokenId || "unknownTokenId"}`;
       dict[uniqIdentifier] = {
@@ -40,9 +40,11 @@ function _extractTokenName(card) {
 
   }
 }
-function _extractTokenId(tokenName) {
+function _extractTokenId(card) {
   try {
-    return Number(tokenName.split("#")[1]);
+    const href = card.getAttribute("href") || "";
+    const tokenId = href.split("/").slice(-1).pop();
+    return Number(tokenId);
   } catch(err) {
     return undefined;
   }
