@@ -82,7 +82,8 @@ async function _extractTotalOffers(page) {
     // set timeout to 1 sec, no need to extensively wait since page should be loaded already
     const element = await page.waitForSelector('.AssetSearchView--results-count', {timeout: 1000});
     const resultsText = await element.evaluate(el => el.textContent); // grab the textContent from the element, by evaluating this function in the browser context
-    return Number(resultsText.split(" ")[0]);
+    const dotsRemoved = resultsText.replace(/\./g,'');
+    return Number(dotsRemoved.split(" ")[0]);
   } catch (err) {
     return undefined;
   }
