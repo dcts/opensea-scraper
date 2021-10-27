@@ -15,20 +15,20 @@ console.log(`===>>> ${slug} <<<===`);
   console.log(`\n\n\n\n✅ === OpenseaScraper.floorPrice(slug) ===`);
   const floorPrice = await OpenseaScraper.floorPrice(slug);
   console.log(`...done! 🔥 \nfloor price:`);
-  console.log(floorPrice);
+  console.dir(floorPrice, {depth: null});
 
   // get floor price by url
   console.log(`\n\n\n\n✅ === OpenseaScraper.floorPriceByUrl(url) ===`);
   console.log("scraping floor price from custom url... (to fetch floor price for a SANDBOX LAND token)")
   const floorPriceByUrl = await OpenseaScraper.floorPriceByUrl("https://opensea.io/collection/sandbox?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Type&search[stringTraits][0][values][0]=Land&search[toggles][0]=BUY_NOW");
-  console.log(floorPriceByUrl);
+  console.dir(floorPriceByUrl, {depth: null});
 
   // get offers
   console.log(`\n\n\n\n✅ === OpenseaScraper.offers(slug, resultSize) ===`);
   let resultSize = 3;
   const offers = await OpenseaScraper.offers(slug, resultSize);
   console.log(`scraped ${offers.length} offers:`);
-  console.log(offers);
+  console.dir(offers, {depth: null});
 
   // get offersByUrl
   console.log(`\n\n\n\n✅ === OpenseaScraper.offersByUrl(url, resultSize) ===`);
@@ -36,7 +36,7 @@ console.log(`===>>> ${slug} <<<===`);
   const url = "https://opensea.io/collection/sandbox?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Type&search[stringTraits][0][values][0]=Land&search[toggles][0]=BUY_NOW";
   const offersByUrl = await OpenseaScraper.offersByUrl(url, resultSize);
   console.log(`scraped ${offersByUrl.length} offers:`);
-  console.log(offersByUrl);
+  console.dir(offersByUrl, {depth: null});
 
   // scrape rankings => https://opensea.io/rankings?sortBy=total_volume
   console.log(`\n\n\n\n✅ === OpenseaScraper.rankings(nPages) ===`);
