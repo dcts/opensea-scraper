@@ -21,7 +21,11 @@ declare module "opensea-scraper" {
     mode?: string
   ): Promise<number | undefined>;
   export function rankings(nPages?: string, mode?: string): Promise<IRanking[]>;
-  export function offers(nPages?: string, mode?: string): Promise<IOffer[]>;
+  export function offers(
+    nPages?: string,
+    resultSize?: number,
+    mode?: string
+  ): Promise<IOffer[]>;
   export function offersByUrl(
     url: string,
     resultSize?: number,
