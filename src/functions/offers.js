@@ -25,6 +25,9 @@ const offers = async (slug, resultSize = 10, mode = "headless") => {
   return await offersByUrl(url, resultSize, mode);
 }
 
+/**
+ * use custom url to scrape offers
+ */
 const offersByUrl = async (url, resultSize = 10, mode = "headless") => {
   const browser = await puppeteer.launch({
     headless: mode === "debug" ? false : true,
