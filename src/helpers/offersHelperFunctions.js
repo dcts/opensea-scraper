@@ -23,12 +23,14 @@ function fetchOffers(dict) {
     const floorPrice = _extractFloorPrice(card);
     const tokenName = _extractTokenName(card);
     const tokenId = _extractTokenId(card);
+    const offerUrl = _extractOfferUrl(card);
     if (floorPrice && tokenName) {
       const uniqIdentifier = `${tokenName}_${tokenId || "unknownTokenId"}`;
       dict[uniqIdentifier] = {
         floorPrice: floorPrice,
         tokenId: tokenId,
         tokenName: tokenName,
+        offerUrl: offerUrl,
       }
     }
   });
@@ -45,6 +47,14 @@ function _extractTokenId(card) {
     const href = card.getAttribute("href") || "";
     const tokenId = href.split("/").slice(-1).pop();
     return tokenId === "" ? undefined : Number(tokenId); // catch case where tokenId is empty string
+  } catch(err) {
+    return undefined;
+  }
+}
+function _extractOfferUrl(card) {
+  try {
+    const href = card.getAttribute("href");
+    return href ? `https://opensea.io${href}` : undefined;
   } catch(err) {
     return undefined;
   }
