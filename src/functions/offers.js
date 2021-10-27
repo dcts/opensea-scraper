@@ -21,12 +21,20 @@ puppeteer.use(StealthPlugin());
  * }
  */
 const offers = async (slug, resultSize = 10, mode = "headless") => {
+  const url = `https://opensea.io/collection/${slug}?search[sortAscending]=true&search[sortBy]=PRICE&search[toggles][0]=BUY_NOW`;
+  return await offersByUrl(url, resultSize, mode);
+}
+
+/**
+ * use custom url to scrape offers
+ */
+const offersByUrl = async (url, resultSize = 10, mode = "headless") => {
   const browser = await puppeteer.launch({
     headless: mode === "debug" ? false : true,
     args: ['--start-maximized'],
   });
   const page = await browser.newPage();
-  await page.goto(`https://opensea.io/collection/${slug}?search[sortAscending]=true&search[sortBy]=PRICE&search[toggles][0]=BUY_NOW`);
+  await page.goto(url);
 
   // ...🚧 waiting for cloudflare to resolve
   await page.waitForSelector('.cf-browser-verification', {hidden: true});
@@ -89,4 +97,7 @@ async function _extractTotalOffers(page) {
   }
 }
 
-module.exports = offers;
+module.exports = {
+  offers,
+  offersByUrl
+};
