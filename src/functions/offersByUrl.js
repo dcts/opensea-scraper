@@ -7,15 +7,17 @@ puppeteer.use(StealthPlugin());
 
 /**
  * scrapes opensea offers by URL instad of slug.
- * Offers hold additional information, not only the floor price,
+ * returns object with keys "offers" (array) and "stats" (object with metadata).
+ * offers: array of offer objects that hold additional information, not only the floor price,
  * example offer object:
  * {
  *   floorPrice: {
  *     amount: 1.2,
- *     currency: "ETH"
+ *     currency: "ETH",
  *   },
  *   name: "cool cat #231",
- *   tokenId: 234
+ *   tokenId: 234,
+ *   offerUrl: "https://opensea.io/assets/0x1a92f7381b9f03921564a437210bb9396471050c/231",
  * }
  */
 const offersByUrl = async (url, resultSize = 10, mode = "headless") => {
@@ -33,7 +35,7 @@ const offersByUrl = async (url, resultSize = 10, mode = "headless") => {
   await page.addScriptTag({path: require.resolve("../helpers/offersHelperFunctions.js")});
 
   // scrape offers until target resultsize reached or bottom of page reached
-  const offersByUrl = await scrollAndFetchOffers(page, resultSize);
+  const offersByUrl = await _scrollAndFetchOffers(page, resultSize);
   if (mode !== "debug") {
     await browser.close();
   }
@@ -42,7 +44,7 @@ const offersByUrl = async (url, resultSize = 10, mode = "headless") => {
 }
 
 
-async function scrollAndFetchOffers(page, resultSize) {
+async function _scrollAndFetchOffers(page, resultSize) {
   return await page.evaluate((resultSize) => new Promise((resolve) => {
     // keep in mind inside the browser context we have the global variable "dict" initialized
     // defined inside src/helpers/rankingsHelperFunctions.js
