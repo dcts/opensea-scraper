@@ -12,12 +12,20 @@ puppeteer.use(StealthPlugin());
  *    and avoid closing browser when the function ends
  */
 const floorPrice = async (slug, mode = "headless") => {
+  const url = `https://opensea.io/collection/${slug}?search[sortAscending]=true&search[sortBy]=PRICE&search[toggles][0]=BUY_NOW`;
+  return await floorPriceByUrl(url, mode);
+}
+
+/**
+ * use custom url to scrape floorPrice
+ */
+const floorPriceByUrl = async (url, mode = "headless") => {
   const browser = await puppeteer.launch({
     headless: mode === "debug" ? false : true,
     args: ['--start-maximized'],
   });
   const page = await browser.newPage();
-  await page.goto(`https://opensea.io/collection/${slug}?search[sortAscending]=true&search[sortBy]=PRICE&search[toggles][0]=BUY_NOW`);
+  await page.goto(url);
 
   // ...🚧 waiting for cloudflare to resolve
   await page.waitForSelector('.cf-browser-verification', {hidden: true});
@@ -57,4 +65,7 @@ const floorPrice = async (slug, mode = "headless") => {
   return floorPrice;
 }
 
-module.exports = floorPrice;
+module.exports = {
+  floorPrice,
+  floorPriceByUrl
+}
