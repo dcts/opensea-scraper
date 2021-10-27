@@ -35,7 +35,7 @@ const basicInfo = async (slug) => {
 
 function _getStats(collectionObj) {
   try {
-    return camelCase(collectionObj.stats);
+    return _camelCase(collectionObj.stats);
   } catch (err) {
     return null;
   }
@@ -147,7 +147,7 @@ function _isVerified(collectionObj) {
   }
 }
 
-function camelCase(obj) {
+function _camelCase(obj) {
   let newObj = {};
   for (d in obj) {
     if (obj.hasOwnProperty(d)) {
