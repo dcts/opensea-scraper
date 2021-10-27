@@ -33,12 +33,12 @@ const offers = async (slug, resultSize = 10, mode = "headless") => {
   await page.addScriptTag({path: require.resolve("../helpers/offersHelperFunctions.js")});
 
   // scrape offers until target resultsize reached or bottom of page reached
-  const offers = await scrollAndFetchOffers(page, resultSize);
+  const { offers, stats } = await scrollAndFetchOffers(page, resultSize);
   if (mode !== "debug") {
     await browser.close();
   }
   const offersSorted = offers.sort((a,b) => a.floorPrice.amount - b.floorPrice.amount)
-  return offersSorted.slice(0, resultSize);
+  return { offers: offersSorted.slice(0, resultSize), stats };
 }
 
 
@@ -53,6 +53,7 @@ async function scrollAndFetchOffers(page, resultSize) {
       // fetchOffers is a function that is exposed through page.addScript() and
       // is defined inside src/helpers/offersHelperFunctions.js
       fetchOffers(dict);
+      const totalOffersCount = getTotalOffersCount();
 
       const endOfPageReached = document.documentElement.scrollTop === currentScrollTop;
       const enoughItemsFetched = Object.keys(dict).length >= resultSize;
@@ -62,7 +63,7 @@ async function scrollAndFetchOffers(page, resultSize) {
         return;
       }
       clearInterval(interval);
-      resolve(Object.values(dict));
+      resolve({ offers: Object.values(dict), stats: { totalOffersCount }});
     }, 120);
   }), resultSize);
 }

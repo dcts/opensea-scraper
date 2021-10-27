@@ -35,6 +35,14 @@ function fetchOffers(dict) {
     }
   });
 }
+function getTotalOffersCount() {
+  try {
+    const resultsText = document.querySelector(".AssetSearchView--results-count").innerText;
+    return Number(resultsText.split(" ")[0].replace(",", ""));
+  } catch(err) {
+    return undefined
+  }
+}
 function _extractTokenName(card) {
   try {
     return card.querySelector(".AssetCardFooter--name").innerText;
