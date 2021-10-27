@@ -61,6 +61,7 @@ If you want to debug, you can pass `"debug"` as last argument and puppeteer will
 - floorPrice
 - floorPriceByUrl
 - offers
+- offersByUrl
 - ranking
 
 ```js
