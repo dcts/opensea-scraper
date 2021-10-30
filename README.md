@@ -51,7 +51,7 @@ const offers = await OpenseaScraper.offersByUrl(url, resultSize);
 // scrape all slugs, names and ranks from the top collections from the rankings page sorted by all time volume:
 // => https://opensea.io/rankings?sortBy=total_volume
 const pagesToScrape = 5; // 100 results per page. 5 pages = 200 results...
-const ranking = await OpenseaScraper.ranking(pagesToScrape);
+const ranking = await OpenseaScraper.rankings(pagesToScrape);
 ```
 
 ## Debugging
@@ -62,7 +62,7 @@ If you want to debug, you can pass `"debug"` as last argument and puppeteer will
 - floorPriceByUrl
 - offers
 - offersByUrl
-- ranking
+- rankings
 
 ```js
 // Example how to use debug mode
