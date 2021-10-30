@@ -28,7 +28,7 @@ const rankings = async (nPages = 1, mode = "headless") => {
   await page.waitForSelector('.cf-browser-verification', {hidden: true});
 
   logs && console.log("...exposing helper functions through script tag")
-  await page.addScriptTag({path: "./src/helpers/rankingsHelperFunctions.js"});
+  await page.addScriptTag({path: require.resolve("../helpers/rankingsHelperFunctions.js")});
 
   logs && console.log("...scrolling to bottom and fetching collections.");
   let dict = await _scrollToBottomAndFetchCollections(page);
