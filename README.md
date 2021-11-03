@@ -30,14 +30,14 @@ npm install opensea-scraper
 
 ## Usage
 
-ℹ `**slug**` is the human readable identifier that opensea uses to identify a collection. It can be extracted from the URL: https://opensea.io/collection/{slug}
+ℹ **`slug`** is the human readable identifier that opensea uses to identify a collection. It can be extracted from the URL: https://opensea.io/collection/{slug}
 ![slug](https://user-images.githubusercontent.com/44790691/131232333-b79c50d7-606c-480a-9816-9d750ab798ff.png)
 
-ℹ `**options**` is an object with the following keys
-- `debug`: [Boolean] launches chromium locally, omits headless mode (default: `false`)
-- `logs` [Boolean]: display logs in the console (default: `false`)
-- `sort` [Boolean]: sorts the offers by lowest to highest (default: `true`)
-- `browserInstance` [PuppeteerBrowser]: bring your own browser instance for more control
+ℹ **`options`** is an object with the following keys
+- **`debug`** [Boolean] launches chromium locally, omits headless mode (default: `false`)
+- **`logs`** [Boolean]: display logs in the console (default: `false`)
+- **`sort`** [Boolean]: sorts the offers by lowest to highest (default: `true`)
+- **`browserInstance`** [PuppeteerBrowser]: bring your own browser instance for more control
 
 ```js
 const OpenseaScraper = require("opensea-scraper");
