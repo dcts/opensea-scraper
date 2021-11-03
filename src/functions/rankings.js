@@ -9,7 +9,7 @@ puppeteer.use(StealthPlugin());
  * Scrapes all collections from the Rankings page at https://opensea.io/rankings?sortBy=total_volume
  * options = {
  *   nbrOfPages: number of pages that should be scraped? (defaults to 1 Page = top 100 collections)
- *   mode: ["headless","debug"] enable debugging by launching chrome locally
+ *   debug: [true,false] enable debugging by launching chrome locally (omit headless mode)
  *   logs: [true,false] show logs in the console
  *   browserInstance: browser instance created with puppeteer.launch() (bring your own puppeteer instance)
  * }
@@ -17,18 +17,18 @@ puppeteer.use(StealthPlugin());
 const rankings = async (optionsGiven = {}) => {
   const optionsDefault = {
     nbrOfPages: 1,
-    mode: "headless",
+    debug: false,
     logs: false,
     browserInstance: undefined,
   };
-  const { nbrOfPages, mode, logs, browserInstance } =  { ...optionsDefault, ...optionsGiven };
+  const { nbrOfPages, debug, logs, browserInstance } =  { ...optionsDefault, ...optionsGiven };
   logs && console.log(`=== OpenseaScraper.rankings() ===\n...fetching ${nbrOfPages} pages (= top ${nbrOfPages*100} collections)`);
 
   // init browser
   let browser = browserInstance;
   if (!browser) {
     browser = await puppeteer.launch({
-      headless: mode !== "debug",
+      headless: !debug, // when debug is true => headless should be false
       args: ['--start-maximized'],
     });
   }
