@@ -7,9 +7,9 @@ const OpenseaScraper = {
   basicInfo,
   floorPrice,
   floorPriceByUrl,
-  rankings,
   offers,
   offersByUrl,
+  rankings,
 };
 
 module.exports = OpenseaScraper;
