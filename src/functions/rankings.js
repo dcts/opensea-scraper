@@ -14,14 +14,13 @@ puppeteer.use(StealthPlugin());
  *   browserInstance: browser instance created with puppeteer.launch() (bring your own puppeteer instance)
  * }
  */
-const rankings = async (optionsGiven = {}) => {
+const rankings = async (nbrOfPages, optionsGiven = {}) => {
   const optionsDefault = {
-    nbrOfPages: 1,
     debug: false,
     logs: false,
     browserInstance: undefined,
   };
-  const { nbrOfPages, debug, logs, browserInstance } =  { ...optionsDefault, ...optionsGiven };
+  const { debug, logs, browserInstance } =  { ...optionsDefault, ...optionsGiven };
   logs && console.log(`=== OpenseaScraper.rankings() ===\n...fetching ${nbrOfPages} pages (= top ${nbrOfPages*100} collections)`);
 
   // init browser
