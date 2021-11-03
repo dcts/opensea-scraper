@@ -15,9 +15,9 @@ async function getFloorPrice(slug) {
   }
 }
 
-const result = await getFloorPrice("lostpoets");
-const result = await getFloorPrice("treeverse");
-const result = await getFloorPrice("cool-cats-nft");
+await getFloorPrice("lostpoets");
+await getFloorPrice("treeverse");
+await getFloorPrice("cool-cats-nft"); 
 ```
 
 If you need floor prices, please use the official API (see above 👆👆👆). This scraper still can be used to scrape additional information about offers (tokenId, name, tokenContractAddress and offerUrl) as well as the ranking.
