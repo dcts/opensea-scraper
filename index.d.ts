@@ -12,32 +12,29 @@ interface IOfferRturnValue {
 interface IOffer {
   floorPrice: { amount: number; currency: string };
   tokenId: number;
-  tokenName: string;
+  name: string;
   offerUrl: string;
+  assetContract: string;
+}
+
+interface IOptions {
+  debug: boolean,
+  logs: boolean,
+  sort: boolean,
 }
 
 declare module "opensea-scraper" {
   export function basicInfo(slug: string): Promise<Record<string, any>>;
-  export function floorPrice(
-    slug: string,
-    mode?: string
-  ): Promise<number | undefined>;
-  export function floorPriceByUrl(
-    slug: string,
-    mode?: string
-  ): Promise<number | undefined>;
   export function rankings(
-    nPages?: string,
-    mode?: string
+    nbrOfPages?: string,
+    options?: IOptions,
   ): Promise<IRanking[]>;
   export function offers(
     slug: string,
-    resultSize?: number,
-    mode?: string
+    options?: IOptions,
   ): Promise<IOfferRturnValue>;
   export function offersByUrl(
     url: string,
-    resultSize?: number,
-    mode?: string
+    options?: IOptions,
   ): Promise<IOfferRturnValue>;
 }
