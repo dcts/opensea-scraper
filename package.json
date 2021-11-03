@@ -1,6 +1,6 @@
 {
   "name": "opensea-scraper",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "Scraping accurate floor prices from opensea, because the API returns inacurate floor prices.",
   "main": "src/index.js",
   "typings": "./index.d.ts",

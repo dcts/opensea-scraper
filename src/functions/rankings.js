@@ -7,18 +7,31 @@ puppeteer.use(StealthPlugin());
 
 /**
  * Scrapes all collections from the Rankings page at https://opensea.io/rankings?sortBy=total_volume
- * nPages = how many pages should be scraped?
- *   (by default only scrape 1 page = 100 collections)
- * mode = "headless" or "debug".
+ * options = {
+ *   nbrOfPages: number of pages that should be scraped? (defaults to 1 Page = top 100 collections)
+ *   debug: [true,false] enable debugging by launching chrome locally (omit headless mode)
+ *   logs: [true,false] show logs in the console
+ *   browserInstance: browser instance created with puppeteer.launch() (bring your own puppeteer instance)
+ * }
  */
-const rankings = async (nPages = 1, mode = "headless") => {
-  const logs = true;
-  const headless = mode !== "debug";
-  logs && console.log(`=== OpenseaScraper.rankings() ===\n...fetching ${nPages} pages (= top ${nPages*100} collections)`);
-  const browser = await puppeteer.launch({
-    headless: headless,
-    args: ['--start-maximized'],
-  });
+const rankings = async (nbrOfPages, optionsGiven = {}) => {
+  const optionsDefault = {
+    debug: false,
+    logs: false,
+    browserInstance: undefined,
+  };
+  const { debug, logs, browserInstance } =  { ...optionsDefault, ...optionsGiven };
+  logs && console.log(`=== OpenseaScraper.rankings() ===\n...fetching ${nbrOfPages} pages (= top ${nbrOfPages*100} collections)`);
+
+  // init browser
+  let browser = browserInstance;
+  if (!browser) {
+    browser = await puppeteer.launch({
+      headless: !debug, // when debug is true => headless should be false
+      args: ['--start-maximized'],
+    });
+  }
+
   const page = await browser.newPage();
   const url = "https://opensea.io/rankings?sortBy=total_volume";
   logs && console.log("...opening url: " + url);
@@ -34,7 +47,7 @@ const rankings = async (nPages = 1, mode = "headless") => {
   let dict = await _scrollToBottomAndFetchCollections(page);
 
   // scrape n pages
-  for (let i = 0; i < nPages - 1; i++) {
+  for (let i = 0; i < nbrOfPages - 1; i++) {
     await _clickNextPageButton(page);
     await page.waitForSelector('.Image--image');
     logs && console.log("...scrolling to bottom and fetching collections. Items fetched so far: " + Object.keys(dict).length);
