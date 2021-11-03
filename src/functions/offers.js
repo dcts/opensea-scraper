@@ -7,9 +7,17 @@ puppeteer.use(StealthPlugin());
 
 /**
  * scrapes opensea offers for a given collection.
- * returns object with keys "offers" (array) and "stats" (object with metadata).
- * offers: array of offer objects that hold additional information, not only the floor price,
- * example offer object:
+ * INPUTS:
+ *   slug [String]: collection identifier by opensea)
+ *   options [Object]: {
+ *     debug [Boolean]: launches chromium locally, omits headless mode (default: `false`)
+ *     logs [Boolean]: display logs in the console (default: `false`)
+ *     sort [Boolean]: sorts the offers by lowest to highest (default: `true`)
+ *     browserInstance [PuppeteerBrowser]: bring your own browser instance for more control
+ *   }
+ * RETURNS:
+ * object with keys "offers" (array of offer objects) and "stats" (object with metadata).
+ * an offer object holds additional information, not only the floor price, example:
  * {
  *   floorPrice: {
  *     amount: 19,
@@ -27,11 +35,14 @@ const offers = async (slug, optionsGiven = {}) => {
 
 /**
  * use custom url to scrape offers
+ * Opensea supports encoding filtering in the URL so this method is helpful for getting
+ * a specific asset (for example floor price for a LAND token from the sandbox collection)
  */
 const offersByUrl = async (url, optionsGiven = {}) => {
   const optionsDefault = {
     debug: false,
     logs: false,
+    sort: true, // sorts the returned offers by lowest to highest price
     browserInstance: undefined,
   };
   const options = { ...optionsDefault, ...optionsGiven };
