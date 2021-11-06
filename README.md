@@ -106,3 +106,14 @@ npm run demo
 ## Contribute
 
 Open PR or issue if you would like to have more features added.
+
+## Donations 🙏
+```
+Thanks for your support!
+BTC: bc1qq5qn96ahlqjxfxz2n9l20kem8p9nsz5yzz93f7
+ETH: 0x3e4503720Fb8f4559Ecf64BE792b3100722dE940
+```
+
+# nftfloorprice.info 🔔
+Get notified when your favorite NFT collection hits your target floor price: https://nftfloorprice.info<br><br>
+<a href="https://nftfloorprice.info"><img src="https://user-images.githubusercontent.com/44790691/140594412-b70d93d1-2278-4d27-abf9-74466bee0137.png"></a>
