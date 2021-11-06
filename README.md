@@ -115,5 +115,5 @@ ETH: 0x3e4503720Fb8f4559Ecf64BE792b3100722dE940
 ```
 
 # nftfloorprice.info 🔔
-Get notified when your favorite NFT collection hits your target floor price: https://nftfloorprice.info<br><br>
+Simple NFT floor price alerts. Easily track all your NFTs and receive realtime email alerts with: https://nftfloorprice.info<br><br>
 <a href="https://nftfloorprice.info"><img src="https://user-images.githubusercontent.com/44790691/140594412-b70d93d1-2278-4d27-abf9-74466bee0137.png"></a>
