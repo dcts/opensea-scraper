@@ -46,7 +46,7 @@ const offersByUrl = async (url, optionsGiven = {}) => {
     browserInstance: undefined,
   };
   const options = { ...optionsDefault, ...optionsGiven };
-  const { debug, logs, browserInstance } = options;
+  const { debug, logs, browserInstance, sort } = options;
   const customPuppeteerProvided = Boolean(optionsGiven.puppeteerInstace);
   logs && console.log(`=== scraping started ===\nScraping Opensea URL: ${url}`);
   logs && console.log(`\n=== options ===\ndebug          : ${debug}\nlogs           : ${logs}\nbrowserInstance: ${browserInstance ? "provided by user" : "default"}`);
@@ -82,7 +82,7 @@ const offersByUrl = async (url, optionsGiven = {}) => {
 
   logs && console.log("extracting offers and stats from __wired__ variable");
   return {
-    offers: _extractOffers(__wired__),
+    offers: _extractOffers(__wired__, { sort }),
     stats: _extractStats(__wired__),
   };
 }
@@ -101,7 +101,7 @@ function _extractStats(__wired__) {
     return "stats not availible. Report issue if you think this is a bug: https://github.com/dcts/opensea-scraper/issues/new";
   }
 }
-function _extractOffers(__wired__) {
+function _extractOffers(__wired__, { sort = true } = {}) {
   // create currency dict to extract different offer currencies
   const currencyDict = {};
   Object.values(__wired__.records)
@@ -145,6 +145,7 @@ function _extractOffers(__wired__) {
       return {
         name: o.name,
         tokenId: tokenId,
+        displayImageUrl: o.displayImageUrl,
         assetContract: assetContract,
         offerUrl: contractAndTokenIdExist ? `https://opensea.io/assets/${assetContract}/${tokenId}` : undefined,
       };
@@ -154,11 +155,20 @@ function _extractOffers(__wired__) {
   floorPrices.forEach((floorPrice, indx) => {
     offers[indx].floorPrice = floorPrice;
   });
-  return _sortOffersLowToHigh(offers, currencyDict);
+
+  return sort ? _sortOffersLowToHigh(offers, currencyDict) : offers;
 }
 
 function _sortOffersLowToHigh(offers, currencyDict) {
   return offers.sort((a,b) => {
+    if (!a.floorPrice) {
+      return 1
+    }
+
+    if (!b.floorPrice) {
+      return -1;
+    }
+
     const getUsdValue = (offer, currencyDict) => {
       const currencySymbol = offer.floorPrice.currency;
       const targetCurrency = Object.values(currencyDict).find(o => o.symbol === currencySymbol);
