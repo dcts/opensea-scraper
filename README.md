@@ -17,7 +17,7 @@ async function getFloorPrice(slug) {
 
 await getFloorPrice("lostpoets");
 await getFloorPrice("treeverse");
-await getFloorPrice("cool-cats-nft"); 
+await getFloorPrice("cool-cats-nft");
 ```
 
 If you need floor prices, please use the official API (see above 👆👆👆). This scraper still can be used to scrape additional information about offers (tokenId, name, tokenContractAddress and offerUrl) as well as the ranking.
@@ -64,8 +64,26 @@ console.dir(result, {depth: null}); // result object contains keys `stats` and `
 // get offers from opensea using a custom link
 // Opensea supports encoding filtering in the URL so this method is helpful for getting
 // a specific asset (for example floor price for a LAND token from the sandbox collection)
-const url = "https://opensea.io/collection/sandbox?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Type&search[stringTraits][0][values][0]=Land&search[toggles][0]=BUY_NOW";
+let url = "https://opensea.io/collection/sandbox?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Type&search[stringTraits][0][values][0]=Land&search[toggles][0]=BUY_NOW";
 result = await OpenseaScraper.offersByUrl(url, options);
+console.dir(result, {depth: null}); // result object contains keys `stats` and `offers`
+
+// get offersByScrolling from opensea. This is an alternative method to get the same
+// data as in the function `offers`, with the only difference that the data is here
+// scraped actively by scrolling through the page. This method is not as efficient
+// as the `offers` method, but it can scrape more than 32 offers. You could even scrape
+// a whole collection with ~10k spots (this is not recommended though).
+let resultSize = 40; // if you need less than 32 offers, please use the function `offers()` instead
+result = await OpenseaScraper.offersByScrolling(slug, resultSize, options);
+console.dir(result, {depth: null}); // result object contains keys `stats` and `offers`
+
+// get offersByScrollingByUrl from opensea using a custom link instead of the slug
+// the same logic applies as in `offersByScrolling()`
+// Opensea supports encoding filtering in the URL so this method is helpful for getting
+// a specific asset (for example floor price for a LAND token from the sandbox collection)
+url = "https://opensea.io/collection/sandbox?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Type&search[stringTraits][0][values][0]=Land&search[toggles][0]=BUY_NOW";
+resultSize = 40; // if you need less than 32 offers, please use the function `offers()` instead
+result = await OpenseaScraper.offersByScrollingByUrl(url, resultSize, options);
 console.dir(result, {depth: null}); // result object contains keys `stats` and `offers`
 
 // scrape all slugs, names and ranks from the top collections from the rankings page
