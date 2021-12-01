@@ -26,6 +26,7 @@ puppeteer.use(StealthPlugin());
  *   name: "cool cat #231",
  *   tokenId: 234,
  *   offerUrl: "https://opensea.io/assets/0x1a92f7381b9f03921564a437210bb9396471050c/231",
+ *   displayImageUrl, "https://lh3.googleusercontent.com/-vBw0jsFjmRF7hsrh26ky0XY2FXhConjTchjpKHBuj6L5Os4i9iu4Fl4ZzTjQJiMkgIEZw8hZCpK0GCUxto637wmIxOd64DSm_Y34w=w600"
  * }
  */
 const offers = async (slug, optionsGiven = {}) => {
