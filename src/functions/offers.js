@@ -145,6 +145,7 @@ function _extractOffers(__wired__) {
       return {
         name: o.name,
         tokenId: tokenId,
+        displayImageUrl: o.displayImageUrl,
         assetContract: assetContract,
         offerUrl: contractAndTokenIdExist ? `https://opensea.io/assets/${assetContract}/${tokenId}` : undefined,
       };
