@@ -159,6 +159,14 @@ function _extractOffers(__wired__) {
 
 function _sortOffersLowToHigh(offers, currencyDict) {
   return offers.sort((a,b) => {
+    if (!a.floorPrice) {
+      return 1
+    }
+
+    if (!b.floorPrice) {
+      return -1;
+    }
+
     const getUsdValue = (offer, currencyDict) => {
       const currencySymbol = offer.floorPrice.currency;
       const targetCurrency = Object.values(currencyDict).find(o => o.symbol === currencySymbol);
