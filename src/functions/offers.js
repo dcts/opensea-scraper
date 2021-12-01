@@ -47,7 +47,16 @@ const offersByUrl = async (url, optionsGiven = {}) => {
   };
   const options = { ...optionsDefault, ...optionsGiven };
   const { debug, logs, browserInstance, sort } = options;
-  const customPuppeteerProvided = Boolean(optionsGiven.puppeteerInstace);
+  const customPuppeteerProvided = Boolean(optionsGiven.browserInstance);
+
+  // add mandatory query params
+  // fixes a bug, see following link:
+  // https://github.com/dcts/opensea-scraper/pull/26
+  const mandatoryQueryParam = "search[toggles][0]=BUY_NOW";
+  if (!url.includes(mandatoryQueryParam)) {
+    const joinChar = url.includes("?") ? "&" : "?";
+    url += `${joinChar}${mandatoryQueryParam}`;
+  }
   logs && console.log(`=== scraping started ===\nScraping Opensea URL: ${url}`);
   logs && console.log(`\n=== options ===\ndebug          : ${debug}\nlogs           : ${logs}\nbrowserInstance: ${browserInstance ? "provided by user" : "default"}`);
 
