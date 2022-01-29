@@ -121,6 +121,16 @@ const result = await OpenseaScraper.offer("cool-cats-nft", {
 npm run demo
 ```
 
+## Run local console / REPL
+To test the functions in an REPL node environment that has `OpenseaScraper` service preloaded simply run:
+```bash
+node --experimental-repl-await -i -e "$(< init-dev-env.js)"
+```
+I recommend saving an alias:
+```bash
+alias consl='node --experimental-repl-await -i -e "$(< init-dev-env.js)"';
+```
+
 ## Contribute
 
 Open PR or issue if you would like to have more features added.
