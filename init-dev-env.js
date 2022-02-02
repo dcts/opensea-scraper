@@ -9,7 +9,7 @@ puppyWithStealth.use(StealthPlugin());
 // load services
 const CloudflareScraper = require('cloudflare-scraper');
 const OpenseaScraper = require("./src/index.js");
-const { isUsingStealthPlugin } = require("./src/helpers/helperFunctions.js");
+const { isUsingStealthPlugin, warnIfNotUsingStealth } = require("./src/helpers/helperFunctions.js");
 
 // example data
 const slug = "cool-cats-nft";
@@ -24,3 +24,8 @@ const options = {
 console.log("\n\n");
 console.log(fs.readFileSync('init-dev-env-message.txt', 'utf8'));
 console.log("\n\n");
+
+(async () => {
+  browser = await puppy.launch();
+  browserWithStealth = await puppyWithStealth.launch();
+})();

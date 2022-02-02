@@ -6,7 +6,7 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
 // load helper function to detect stealth plugin
-const { isUsingStealthPlugin } = require("../helpers/helperFunctions.js");
+const { warnIfNotUsingStealth } = require("../helpers/helperFunctions.js");
 
 /**
  * Scrapes all collections from the Rankings page at https://opensea.io/rankings?sortBy=total_volume
@@ -36,9 +36,7 @@ const rankings = async (nbrOfPages, optionsGiven = {}) => {
       args: ['--start-maximized'],
     });
   }
-  if (customPuppeteerProvided && !isUsingStealthPlugin(browser)) {
-    console.warn("🚧 WARNING: You are using puppeteer without the stealth plugin. You most likely need to use stealth plugin to scrape Opensea.");
-  }
+  customPuppeteerProvided && warnIfNotUsingStealth(browser);
 
   const page = await browser.newPage();
   const url = "https://opensea.io/rankings?sortBy=total_volume";

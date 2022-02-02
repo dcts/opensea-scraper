@@ -14,11 +14,14 @@ Donate        🙏 BTC: bc1qq5qn96ahlqjxfxz2n9l20kem8p9nsz5yzz93f7
   puppeteer-extra-plugin-stealth
 
 ==== INITIALIZED VARIABLES ===
-  puppy                : pupeeteer
-  puppyWithStealth     : puppeteer with stealth (headless)
-  options              : example options
-  slug                 : example slug
-  isUsingStealthPlugin : function checks if browser instance uses stealth plugin
+  puppy                 : pupeeteer
+  puppyWithStealth      : puppeteer with stealth
+  browser               : (headless) browser
+  browserWithStealth    : (headless) browser with stealth
+  options               : example options
+  slug                  : example slug
+  isUsingStealthPlugin  : function checks if browser instance uses stealth plugin
+  warnIfNotUsingStealth : prints warning message if no stealth plugin is used
 
 🎉🎉🎉  DEV ENVIRONMENT SUCCESSFULLY LOADED  🎉🎉🎉
 
