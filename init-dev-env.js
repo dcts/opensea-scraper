@@ -1,14 +1,26 @@
-const OpenseaScraper = require("./src/index.js");
-const CloudflareScraper = require('cloudflare-scraper');
+// INIT PUPPETEER (no stealth for testing)
+const puppy = require('puppeteer');
 
+// INIT PUPPETEER (with stealth)
+const puppyWithStealth = require('puppeteer-extra');
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+puppyWithStealth.use(StealthPlugin());
+
+// load services
+const CloudflareScraper = require('cloudflare-scraper');
+const OpenseaScraper = require("./src/index.js");
+const { isUsingStealthPlugin } = require("./src/helpers/helperFunctions.js");
+
+// example data
 const slug = "cool-cats-nft";
 const options = {
-  debug: true,
+  debug: false,
   sort: true,
   logs: true,
   browserInstance: undefined,
-}
-console.log(`===>>> ${slug} <<<===`);
-console.log("OPTIONS:");
-console.log(options);
+};
+
+// GREET DEVELOPER
+console.log("\n\n");
+console.log(fs.readFileSync('init-dev-env-message.txt', 'utf8'));
 console.log("\n\n");

@@ -1,0 +1,25 @@
+
+=======================
+OPENSEA SCRAPER by dcts
+=======================
+
+Report Issues 🐛 https://github.com/dcts/opensea-scraper/issues
+Feedback      💌 thomas@liist.com
+Donate        🙏 BTC: bc1qq5qn96ahlqjxfxz2n9l20kem8p9nsz5yzz93f7
+                 ETH: 0x3e4503720Fb8f4559Ecf64BE792b3100722dE940
+
+=== LOADED EXTERNAL PACKAGES ===
+  puppeteer
+  puppeteer-extra
+  puppeteer-extra-plugin-stealth
+
+==== INITIALIZED VARIABLES ===
+  puppy                : pupeeteer
+  puppyWithStealth     : puppeteer with stealth (headless)
+  options              : example options
+  slug                 : example slug
+  isUsingStealthPlugin : function checks if browser instance uses stealth plugin
+
+🎉🎉🎉  DEV ENVIRONMENT SUCCESSFULLY LOADED  🎉🎉🎉
+
+💪 You are amazing! 💯
