@@ -5,6 +5,9 @@ const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
+// load helper function to detect stealth plugin
+const { warnIfNotUsingStealth } = require("../helpers/helperFunctions.js");
+
 /**
  * scrapes opensea offers for a given collection by scrolling
  * through the page and fetching all offers "manually".
@@ -77,6 +80,7 @@ const offersByScrollingByUrl = async (url, resultSize, optionsGiven = {}) => {
       args: ['--start-maximized'],
     });
   }
+  customPuppeteerProvided && warnIfNotUsingStealth(browser);
 
   logs && console.log("\n=== actions ===");
   logs && console.log("new page created");
