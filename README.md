@@ -105,9 +105,13 @@ const result = await OpenseaScraper.offers("treeverse", {
 
 ### Bring your own puppeteer
 
-if you want to customize the settings for your puppeteer instance you can add your own puppeteer browser instance in the options:
+if you want to customize the settings for your puppeteer instance you can add your own puppeteer browser instance in the options. **🚧 IMPORTANT**: I recommend using stealth plugin as otherwise you most likely won't be able to scrape opensea. If you find a way without using the stealth plugin please report in the form of an issue!
 ```js
-const puppeteer = require("puppeteer");
+const puppeteer = require('puppeteer-extra');
+// add stealth plugin and use defaults (all evasion techniques)
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+puppeteer.use(StealthPlugin());
+
 const myPuppeteerInstance = await puppeteer.launch(myCustomSettings);
 
 const result = await OpenseaScraper.offer("cool-cats-nft", {

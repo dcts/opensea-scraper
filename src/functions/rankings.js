@@ -5,6 +5,9 @@ const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
+// load helper function to detect stealth plugin
+const { warnIfNotUsingStealth } = require("../helpers/helperFunctions.js");
+
 /**
  * Scrapes all collections from the Rankings page at https://opensea.io/rankings?sortBy=total_volume
  * options = {
@@ -20,17 +23,20 @@ const rankings = async (nbrOfPages, optionsGiven = {}) => {
     logs: false,
     browserInstance: undefined,
   };
-  const { debug, logs, browserInstance } =  { ...optionsDefault, ...optionsGiven };
+  const options = { ...optionsDefault, ...optionsGiven };
+  const { debug, logs, browserInstance } = options;
+  const customPuppeteerProvided = Boolean(optionsGiven.browserInstance);
   logs && console.log(`=== OpenseaScraper.rankings() ===\n...fetching ${nbrOfPages} pages (= top ${nbrOfPages*100} collections)`);
 
   // init browser
   let browser = browserInstance;
-  if (!browser) {
+  if (!customPuppeteerProvided) {
     browser = await puppeteer.launch({
       headless: !debug, // when debug is true => headless should be false
       args: ['--start-maximized'],
     });
   }
+  customPuppeteerProvided && warnIfNotUsingStealth(browser);
 
   const page = await browser.newPage();
   const url = "https://opensea.io/rankings?sortBy=total_volume";
