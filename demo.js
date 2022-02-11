@@ -52,9 +52,8 @@ console.log(options);
   // scrape rankings => https://opensea.io/rankings?sortBy=total_volume
   if (demoRankings) {
     console.log(`\n\n\n\n✅ === OpenseaScraper.rankings() ===`);
-    const nbrOfPages = 2;
-    console.log(`scraping ${nbrOfPages} pages of rankings => https://opensea.io/rankings?sortBy=total_volume`);
-    const rankings = await OpenseaScraper.rankings(nbrOfPages, options);
+    console.log(`scraping ranking (last 24h)`);
+    const rankings = await OpenseaScraper.rankings("24h", options);
     console.log(`scraped ${rankings.length} collections: ${rankings.map(o => o.slug).join(" | ")}`);
   }
 
