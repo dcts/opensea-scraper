@@ -1,7 +1,9 @@
 interface IRanking {
+  name: string;
   slug: string;
-  thumbanil?: string;
-  rank: number;
+  logo: string;
+  isVerified: boolean;
+  floorPrice: { amount: number; currency: string };
 }
 
 interface IOfferRturnValue {
@@ -26,7 +28,7 @@ interface IOptions {
 declare module "opensea-scraper" {
   export function basicInfo(slug: string): Promise<Record<string, any>>;
   export function rankings(
-    nbrOfPages?: string,
+    type?: string,
     options?: IOptions,
   ): Promise<IRanking[]>;
   export function offers(

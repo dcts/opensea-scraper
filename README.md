@@ -87,10 +87,13 @@ result = await OpenseaScraper.offersByScrollingByUrl(url, resultSize, options);
 console.dir(result, {depth: null}); // result object contains keys `stats` and `offers`
 
 // scrape all slugs, names and ranks from the top collections from the rankings page
-// sorted by all time volume => https://opensea.io/rankings?sortBy=total_volume
-// `nbrOfPages` specifies how many pages should be scraped (1 page = 100 collections)
-const nbrOfPages = 2;
-const ranking = await OpenseaScraper.rankings(nbrOfPages, options);
+// "type" is one of the following:
+// "24h": ranking of last 24 hours: https://opensea.io/rankings?sortBy=one_day_volume
+// "7d": ranking of last 7 days: https://opensea.io/rankings?sortBy=seven_day_volume
+// "30d": ranking of last 30 days: https://opensea.io/rankings?sortBy=thirty_day_volume
+// "total": scrapes all time ranking: https://opensea.io/rankings?sortBy=total_volume
+const type = "24h"; // possible values: "24h", "7d", "30d", "total"
+const ranking = await OpenseaScraper.rankings(type, options);
 ```
 
 ### Debugging
