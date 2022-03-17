@@ -122,7 +122,7 @@ const offersByScrollingByUrl = async (url, resultSize, optionsGiven = {}) => {
 async function _scrollAndFetchOffers(page, resultSize) {
   return await page.evaluate((resultSize) => new Promise((resolve) => {
     // keep in mind inside the browser context we have the global variable "dict" initialized
-    // defined inside src/helpers/rankingsHelperFunctions.js
+    // defined inside src/helpers/offersByScrollingHelperFunctions.js
     let currentScrollTop = -1;
     const interval = setInterval(() => {
       console.log("another scrol... dict.length = " + Object.keys(dict).length);
