@@ -72,7 +72,7 @@ function _extractFloorPrice(card) {
   try {
     const priceSection = card.querySelector(".AssetCardFooter--price-amount");
     const currencyIsEth = Boolean(priceSection.querySelector(".Price--eth-icon"));
-    const floorPriceStr = priceSection.querySelector(".Price--amount").textContent.split(",").join("."); // replace comma with dot
+    const floorPriceStr = priceSection.querySelectorAll(":scope > div")[1].textContent.split(",").join("."); // replace comma with dot
     const floorPrice = Number(floorPriceStr);
     return {
       amount: floorPrice,

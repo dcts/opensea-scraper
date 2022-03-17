@@ -128,7 +128,7 @@ async function _scrollAndFetchOffers(page, resultSize) {
       console.log("another scrol... dict.length = " + Object.keys(dict).length);
       window.scrollBy(0, 50);
       // fetchOffers is a function that is exposed through page.addScript() and
-      // is defined inside src/helpers/offersHelperFunctions.js
+      // is defined inside src/helpers/offersByScrollingHelperFunctions.js
       fetchOffers(dict);
 
       const endOfPageReached = document.documentElement.scrollTop === currentScrollTop;
