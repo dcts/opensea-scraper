@@ -17,7 +17,7 @@ const { warnIfNotUsingStealth } = require("../helpers/helperFunctions.js");
  *   browserInstance: browser instance created with puppeteer.launch() (bring your own puppeteer instance)
  * }
  */
-const rankings = async (type = "total", optionsGiven = {}) => {
+const rankings = async (type = "total", optionsGiven = {}, chain = undefined) => {
   const optionsDefault = {
     debug: false,
     logs: false,
@@ -39,7 +39,7 @@ const rankings = async (type = "total", optionsGiven = {}) => {
   customPuppeteerProvided && warnIfNotUsingStealth(browser);
 
   const page = await browser.newPage();
-  const url = getUrl(type);
+  const url = getUrl(type, chain);
   logs && console.log("...opening url: " + url);
   await page.goto(url);
 
@@ -82,22 +82,22 @@ function _parseNextDataVarible(__NEXT_DATA__) {
   return __NEXT_DATA__.props.relayCache[0][1].json.data.rankings.edges.map(obj => extractCollection(obj.node));
 }
 
-function getUrl(type) {
+function getUrl(type, chain) {
+  chainExtraQueryParameter = chain ? `&chain=${chain}` : ''
   if (type === "24h") {
-    return "https://opensea.io/rankings?sortBy=one_day_volume";
+    return `https://opensea.io/rankings?sortBy=one_day_volume${chainExtraQueryParameter}`;
 
   } else if (type === "7d") {
-    return "https://opensea.io/rankings?sortBy=seven_day_volume";
+    return `https://opensea.io/rankings?sortBy=seven_day_volume${chainExtraQueryParameter}`;
 
   } else if (type === "30d") {
-    return "https://opensea.io/rankings?sortBy=thirty_day_volume";
+    return `https://opensea.io/rankings?sortBy=thirty_day_volume${chainExtraQueryParameter}`;
 
   } else if (type === "total") {
-    return "https://opensea.io/rankings?sortBy=total_volume";
-
-  } else {
-    throw new Error(`Invalid type provided. Expected: 24h,7d,30d,total. Got: ${type}`);
+    return `https://opensea.io/rankings?sortBy=total_volume${chainExtraQueryParameter}`;
   }
+
+  throw new Error(`Invalid type provided. Expected: 24h,7d,30d,total. Got: ${type}`);
 }
 module.exports = rankings;
 
