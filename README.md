@@ -88,12 +88,15 @@ console.dir(result, {depth: null}); // result object contains keys `stats` and `
 
 // scrape all slugs, names and ranks from the top collections from the rankings page
 // "type" is one of the following:
-// "24h": ranking of last 24 hours: https://opensea.io/rankings?sortBy=one_day_volume
-// "7d": ranking of last 7 days: https://opensea.io/rankings?sortBy=seven_day_volume
-// "30d": ranking of last 30 days: https://opensea.io/rankings?sortBy=thirty_day_volume
-// "total": scrapes all time ranking: https://opensea.io/rankings?sortBy=total_volume
+//   "24h": ranking of last 24 hours: https://opensea.io/rankings?sortBy=one_day_volume
+//   "7d": ranking of last 7 days: https://opensea.io/rankings?sortBy=seven_day_volume
+//   "30d": ranking of last 30 days: https://opensea.io/rankings?sortBy=thirty_day_volume
+//   "total": scrapes all time ranking: https://opensea.io/rankings?sortBy=total_volume
+// "chain" is one of the following: "ethereum", "matic", "klaytn", "solana"
+//    if chain is unset, all chains will be selected by default
 const type = "24h"; // possible values: "24h", "7d", "30d", "total"
-const ranking = await OpenseaScraper.rankings(type, options);
+const chain = "solana";
+const ranking = await OpenseaScraper.rankings(type, options, chain);
 ```
 
 ### Debugging

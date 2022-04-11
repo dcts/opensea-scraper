@@ -157,7 +157,7 @@ function _extractOffers(__wired__, { sort = true } = {}) {
       const tokenId = o.tokenId;
       const contractAndTokenIdExist = Boolean(assetContract) && Boolean(tokenId);
       return {
-        name: o.name,
+        name: o.name || tokenId || null, // tokenId as name if name===null (e.g. BoredApeYachtClub nfts do not have name)
         tokenId: tokenId,
         displayImageUrl: o.displayImageUrl,
         assetContract: assetContract,

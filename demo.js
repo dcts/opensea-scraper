@@ -53,7 +53,8 @@ console.log(options);
   if (demoRankings) {
     console.log(`\n\n\n\n✅ === OpenseaScraper.rankings() ===`);
     console.log(`scraping ranking (last 24h)`);
-    const rankings = await OpenseaScraper.rankings("24h", options);
+    const chain = "solana";
+    const rankings = await OpenseaScraper.rankings("24h", options, chain);
     console.log(`scraped ${rankings.length} collections: ${rankings.map(o => o.slug).join(" | ")}`);
   }
 
