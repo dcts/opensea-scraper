@@ -21,7 +21,7 @@
     "erc-721"
   ],
   "author": "dcts",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
     "puppeteer": "^13.5.1",
