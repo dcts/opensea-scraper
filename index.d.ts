@@ -29,8 +29,8 @@ declare module "opensea-scraper" {
   export function basicInfo(slug: string): Promise<Record<string, any>>;
   export function rankings(
     type?: string,
-    chain?: string,
     options?: IOptions,
+    chain?: string,
   ): Promise<IRanking[]>;
   export function offers(
     slug: string,
