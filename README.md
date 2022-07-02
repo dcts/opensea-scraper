@@ -96,7 +96,7 @@ console.dir(result, {depth: null}); // result object contains keys `stats` and `
 //    if chain is unset, all chains will be selected by default
 const type = "24h"; // possible values: "24h", "7d", "30d", "total"
 const chain = "solana";
-const ranking = await OpenseaScraper.rankings(type, options, chain);
+const ranking = await OpenseaScraper.rankings(type, chain, options);
 ```
 
 ### Debugging

@@ -17,7 +17,7 @@ const { warnIfNotUsingStealth } = require("../helpers/helperFunctions.js");
  *   browserInstance: browser instance created with puppeteer.launch() (bring your own puppeteer instance)
  * }
  */
-const rankings = async (type = "total", optionsGiven = {}, chain = undefined) => {
+const rankings = async (type = "total", chain = undefined, optionsGiven = {}) => {
   const optionsDefault = {
     debug: false,
     logs: false,
