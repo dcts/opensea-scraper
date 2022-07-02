@@ -54,7 +54,7 @@ console.log(options);
     console.log(`\n\n\n\n✅ === OpenseaScraper.rankings() ===`);
     console.log(`scraping ranking (last 24h)`);
     const chain = "solana";
-    const rankings = await OpenseaScraper.rankings("24h", options, chain);
+    const rankings = await OpenseaScraper.rankings("24h", chain, options);
     console.log(`scraped ${rankings.length} collections: ${rankings.map(o => o.slug).join(" | ")}`);
   }
 
