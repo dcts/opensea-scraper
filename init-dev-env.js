@@ -8,7 +8,7 @@ puppyWithStealth.use(StealthPlugin());
 
 // load services
 const OpenseaScraper = require("./src/index.js");
-const { isUsingStealthPlugin, warnIfNotUsingStealth } = require("./src/helpers/helperFunctions.js");
+const { isUsingStealthPlugin, warnIfNotUsingStealth, sleep } = require("./src/helpers/helperFunctions.js");
 
 // example data
 const slug = "cool-cats-nft";
@@ -16,6 +16,7 @@ const options = {
   debug: false,
   sort: true,
   logs: true,
+  additionalWait: 0,
   browserInstance: undefined,
 };
 
