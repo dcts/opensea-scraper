@@ -41,9 +41,8 @@ console.log(options);
 
   // get offersByUrl
   if (demoOffersByUrl) {
-    // const urlSandbox = "https://opensea.io/collection/sandbox?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Type&search[stringTraits][0][values][0]=Land&search[toggles][0]=BUY_NOW";
     console.log(`\n\n\n\n✅ === OpenseaScraper.offersByUrl(url, resultSize) ===`);
-    const url = "https://opensea.io/collection/boredapeyachtclub?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Background&search[stringTraits][0][values][0]=Purple&search[stringTraits][1][name]=Earring&search[stringTraits][1][values][0]=Silver%20Hoop&search[stringTraits][2][name]=Eyes&search[stringTraits][2][values][0]=Bloodshot";
+    const url = "https://opensea.io/collection/boredapeyachtclub?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Background&search[stringTraits][0][values][0]=Purple&search[stringTraits][1][name]=Eyes&search[stringTraits][1][values][0]=Bloodshot&search[toggles][0]=BUY_NOW";
     const resultByUrl = await OpenseaScraper.offersByUrl(url, options);
     console.log(`total Offers: ${resultByUrl.stats.totalOffers}`);
     console.log(`top 3 Offers`);
