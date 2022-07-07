@@ -3,10 +3,10 @@ const OpenseaScraper = require("./src/index.js");
 // switch on/off which function to demo
 const demoBasicInfo = true;
 const demoOffers = true;
-const demoOffersByUrl = true;
+const demoOffersByUrl = true; 
 const demoRankings = true;
-const demoOffersByScrolling = true;
-const demoOffersByScrollingByUrl = true;
+const demoOffersByScrolling = false; // CURRENTLY NOT WORKING
+const demoOffersByScrollingByUrl = false; // CURRENTLY NOT WORKING
 
 // which NFT project to scrape?
 const slug = "cool-cats-nft";
@@ -14,6 +14,7 @@ const options = {
   debug: false,
   sort: true,
   logs: true,
+  additionalWait: 0,
   browserInstance: undefined,
 }
 console.log(`===>>> ${slug} <<<===`);

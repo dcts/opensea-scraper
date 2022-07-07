@@ -37,6 +37,7 @@ npm install opensea-scraper
 - **`debug`** [Boolean] launches chromium locally, omits headless mode (default: `false`)
 - **`logs`** [Boolean]: display logs in the console (default: `false`)
 - **`sort`** [Boolean]: sorts the offers by lowest to highest (default: `true`)
+- **`additionalWait`** [Number]: time to wait (in milliseconds) after page was loaded before the scraping starts (default: `0`)
 - **`browserInstance`** [PuppeteerBrowser]: bring your own browser instance for more control
 
 ```js
@@ -50,41 +51,63 @@ const options = {
   debug: false,
   logs: false,
   sort: true,
+  additionalWai: 0,
   browserInstance: undefined,
 }
 
 // get basic info (from the opensea API)
 const basicInfo = await OpenseaScraper.basicInfo(slug);
 
-// get offers from opensea. Each offer includes the floor price, tokenName,
-// tokenId, tokenContractAddress and offerUrl
+// get offers from opensea. Each offer includes the 
+// floor price, tokenName, tokenId, tokenContractAddress
+// and offerUrl
 let result = await OpenseaScraper.offers(slug, options);
 console.dir(result, {depth: null}); // result object contains keys `stats` and `offers`
 
 // get offers from opensea using a custom link
-// Opensea supports encoding filtering in the URL so this method is helpful for getting
-// a specific asset (for example floor price for a LAND token from the sandbox collection)
-let url = "https://opensea.io/collection/sandbox?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Type&search[stringTraits][0][values][0]=Land&search[toggles][0]=BUY_NOW";
+// Opensea supports encoding filtering in the URL so 
+// this method is helpful for getting a specific asset 
+// (for example floor price for a deadfellaz with  
+// a purple fur trait)
+let url = "https://opensea.io/collection/deadfellaz?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Body&search[stringTraits][0][values][0]=Purple%20Fur&search[toggles][0]=BUY_NOW";
 result = await OpenseaScraper.offersByUrl(url, options);
-console.dir(result, {depth: null}); // result object contains keys `stats` and `offers`
+// result object contains keys `stats` and `offers`
+console.dir(result, {depth: null}); 
 
-// get offersByScrolling from opensea. This is an alternative method to get the same
-// data as in the function `offers`, with the only difference that the data is here
-// scraped actively by scrolling through the page. This method is not as efficient
-// as the `offers` method, but it can scrape more than 32 offers. You could even scrape
-// a whole collection with ~10k spots (this is not recommended though).
-let resultSize = 40; // if you need less than 32 offers, please use the function `offers()` instead
+// DISCLAIMER: FUNCTION `offersByScrolling`
+// IS CURRENTLY NOT WORKING (!!!) see [issue#36](https://github.com/dcts/opensea-scraper/issues/36)
+// get offersByScrolling from opensea. This is an 
+// alternative method to get the same data as with
+// the function `offers`, with the only difference 
+// that the data is here scraped actively by scrolling 
+// through the page. This method is not as efficient
+// as the `offers` method, but it can scrape more 
+// than 32 offers. You could even scrape a whole 
+// collection with ~10k spots (this is not recommended 
+// though).
+// IMPORTANT: if you need less than 32 offers, 
+// please use the function `offers()` instead
+let resultSize = 40; 
 result = await OpenseaScraper.offersByScrolling(slug, resultSize, options);
-console.dir(result, {depth: null}); // result object contains keys `stats` and `offers`
+// result object contains keys `stats` and `offers`
+console.dir(result, {depth: null}); 
 
-// get offersByScrollingByUrl from opensea using a custom link instead of the slug
-// the same logic applies as in `offersByScrolling()`
-// Opensea supports encoding filtering in the URL so this method is helpful for getting
-// a specific asset (for example floor price for a LAND token from the sandbox collection)
-url = "https://opensea.io/collection/sandbox?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Type&search[stringTraits][0][values][0]=Land&search[toggles][0]=BUY_NOW";
-resultSize = 40; // if you need less than 32 offers, please use the function `offers()` instead
+// DISCLAIMER: FUNCTION `offersByScrollingByUrl`
+// IS CURRENTLY NOT WORKING (!!!) see [issue#36](https://github.com/dcts/opensea-scraper/issues/36)
+// get offersByScrollingByUrl from opensea using a 
+// custom link instead of the slug. the same logic 
+// applies as in `offersByScrolling()`
+// Opensea supports encoding filtering in the URL so 
+// this method is helpful for getting a specific asset 
+// (for example floor price for a deadfellaz with  
+// a purple fur trait)
+// IMPORTANT: if you need less than 32 offers, 
+// please use the function `offersByUrl()` instead
+url = "https://opensea.io/collection/deadfellaz?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Body&search[stringTraits][0][values][0]=Purple%20Fur&search[toggles][0]=BUY_NOW";
+resultSize = 40;
 result = await OpenseaScraper.offersByScrollingByUrl(url, resultSize, options);
-console.dir(result, {depth: null}); // result object contains keys `stats` and `offers`
+// result object contains keys `stats` and `offers`
+console.dir(result, {depth: null}); 
 
 // scrape all slugs, names and ranks from the top collections from the rankings page
 // "type" is one of the following:

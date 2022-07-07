@@ -22,6 +22,7 @@ Donate        🙏 BTC: bc1qq5qn96ahlqjxfxz2n9l20kem8p9nsz5yzz93f7
   slug                  : example slug
   isUsingStealthPlugin  : function checks if browser instance uses stealth plugin
   warnIfNotUsingStealth : prints warning message if no stealth plugin is used
+  sleep                 : helper function to sleep: sleep(4000) => waits 4 seconds 
 
 🎉🎉🎉  DEV ENVIRONMENT SUCCESSFULLY LOADED  🎉🎉🎉
 

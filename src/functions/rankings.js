@@ -6,7 +6,7 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
 // load helper function to detect stealth plugin
-const { warnIfNotUsingStealth } = require("../helpers/helperFunctions.js");
+const { warnIfNotUsingStealth, sleep } = require("../helpers/helperFunctions.js");
 
 /**
  * Scrapes all collections from the Rankings page at https://opensea.io/rankings
@@ -21,10 +21,11 @@ const rankings = async (type = "total", chain = undefined, optionsGiven = {}) =>
   const optionsDefault = {
     debug: false,
     logs: false,
+    additionalWait: 0, // waittime in milliseconds, after page loaded, but before stating to scrape
     browserInstance: undefined,
   };
   const options = { ...optionsDefault, ...optionsGiven };
-  const { debug, logs, browserInstance } = options;
+  const { debug, logs, additionalWait, browserInstance } = options;
   const customPuppeteerProvided = Boolean(optionsGiven.browserInstance);
   logs && console.log(`=== OpenseaScraper.rankings() ===\n`);
 
@@ -46,7 +47,13 @@ const rankings = async (type = "total", chain = undefined, optionsGiven = {}) =>
   logs && console.log("...🚧 waiting for cloudflare to resolve");
   await page.waitForSelector('.cf-browser-verification', {hidden: true});
 
-  logs && console.log("extracting __NEXT_DATA variable");
+  // additional wait?
+  if (additionalWait > 0) {
+    logs && console.log(`...additional wait active, waiting ${additionalWait / 1000} seconds...`);
+    await sleep(additionalWait);
+  }
+
+  logs && console.log("...extracting __NEXT_DATA variable");
   const __NEXT_DATA__ = await page.evaluate(() => {
     const nextDataStr = document.getElementById("__NEXT_DATA__").innerText;
     return JSON.parse(nextDataStr);
