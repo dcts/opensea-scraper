@@ -1,6 +1,6 @@
 {
   "name": "opensea-scraper",
-  "version": "6.5.0",
+  "version": "6.5.1",
   "description": "Scraping floor prices from opensea.",
   "main": "src/index.js",
   "typings": "./index.d.ts",
