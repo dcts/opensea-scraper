@@ -1,6 +1,6 @@
 # Opensea Scraper
 
-🎉 **UPDATE 2021-Nov-3**: Opensea officially [updated their API](https://twitter.com/apiopensea/status/1455918328397144069). You can get accurate realtime floor prices from this endpoint: `https://api.opensea.io/api/v1/collection/{slug}/stats`:
+**DISCLAIMER**: You can get accurate realtime floor prices from this official opensea API endpoint: `https://api.opensea.io/api/v1/collection/{slug}/stats`:
 ```js
 const axios = require("axios");
 
