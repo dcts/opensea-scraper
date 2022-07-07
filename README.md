@@ -51,7 +51,7 @@ const options = {
   debug: false,
   logs: false,
   sort: true,
-  additionalWai: 0,
+  additionalWait: 0,
   browserInstance: undefined,
 }
 
