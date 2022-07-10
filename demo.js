@@ -16,7 +16,7 @@ const options = {
   logs: true,
   additionalWait: 0,
   browserInstance: undefined,
-}
+};
 console.log(`===>>> ${slug} <<<===`);
 console.log("OPTIONS:");
 console.log(options);
