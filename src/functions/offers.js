@@ -151,12 +151,12 @@ function _extractOffers(__wired__, sort = true, isTestnet = false) {
 
   // get all floorPrices (all currencies)
   const floorPrices = Object.values(__wired__.records)
-    .filter(o => o.__typename === "AssetQuantityType")
-    .filter(o => o.quantityInEth)
+    .filter(o => o.__typename === "PriceType" && o.eth && o.unit && o.usd)
+    .filter(o => o.eth)
     .map(o => {
       return {
-        amount: o.quantity / 1000000000000000000,
-        currency: currencyDict[o.asset.__ref].symbol,
+        amount: o.eth,
+        currency: 'ETH',
       }
     });
 
