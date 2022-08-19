@@ -11,7 +11,7 @@ const { warnIfNotUsingStealth, sleep } = require("../helpers/helperFunctions.js"
 /**
  * scrapes opensea offers for a given collection by scrolling
  * through the page and fetching all offers "manually".
- * if you need less than 32 offers, please use the regular `offers()`
+ * if you need less than 20 offers, please use the regular `offers()`
  * method, since it is significantly more efficient.
  *
  * INPUTS:
