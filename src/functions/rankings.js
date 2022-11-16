@@ -66,24 +66,32 @@ const rankings = async (type = "total", chain = undefined, optionsGiven = {}) =>
 }
 
 function _parseNextDataVarible(__NEXT_DATA__) {
-  const extractFloorPrice = (statsV2) => {
+  const extractFloorPrice = (windowCollectionStats, extractionMethod) => {
     try {
+      if (extractionMethod === "multichain") {
+        return {
+          amount: Number(windowCollectionStats.floorPrice.unit),
+          currency: windowCollectionStats.floorPrice.symbol.toUpperCase(),
+        }
+      }
       return {
-        amount: Number(statsV2.floorPrice.eth),
+        amount: Number(windowCollectionStats.floorPrice.eth),
         currency: "ETH",
       }
     } catch(err) {
       return null;
     }
   }
-  const extractCollection = (obj) => {
+  const extractCollection = (node) => {
     return {
-      name: obj.name,
-      slug: obj.slug,
-      logo: obj.logo,
-      isVerified: obj.isVerified,
-      floorPrice: extractFloorPrice(obj.statsV2),
-      // statsV2: obj.statsV2, // 🚧 comment back in if you need additional stats
+      name: node.name,
+      slug: node.slug,
+      logo: node.logo,
+      isVerified: node.isVerified,
+      floorPrice: extractFloorPrice(node.windowCollectionStats),
+      floorPriceMultichain: extractFloorPrice(node.windowCollectionStats, "multichain"),
+      // statsV2: node.statsV2, // 🚧 comment back in if you need additional stats
+      // windowCollectionStats: node.windowCollectionStats, // 🚧 comment back in if you need additional stats
     };
   }
   return __NEXT_DATA__.props.relayCache[0][1].json.data.rankings.edges.map(obj => extractCollection(obj.node));
