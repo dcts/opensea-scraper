@@ -155,7 +155,7 @@ function _extractOffers(__wired__, sort = true, isTestnet = false) {
     .filter(o => o.eth)
     .map(o => {
       return {
-        amount: o.eth,
+        amount: Number(o.eth),
         currency: 'ETH',
       }
     });
