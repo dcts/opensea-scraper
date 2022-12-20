@@ -21,6 +21,9 @@
     "erc-721"
   ],
   "author": "dcts",
+  "contributors": [
+    "emirsavran"
+  ],
   "license": "MIT",
   "dependencies": {
     "axios": "^1.2.1",
