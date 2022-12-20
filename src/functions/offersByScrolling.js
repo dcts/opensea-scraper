@@ -1,5 +1,6 @@
 // puppeteer-extra is a drop-in replacement for puppeteer,
 // it augments the installed puppeteer with plugin functionality
+const { executablePath } = require('puppeteer');
 const puppeteer = require('puppeteer-extra');
 // add stealth plugin and use defaults (all evasion techniques)
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
@@ -79,6 +80,7 @@ const offersByScrollingByUrl = async (url, resultSize, optionsGiven = {}) => {
     browser = await puppeteer.launch({
       headless: !debug, // when debug is true => headless should be false
       args: ['--start-maximized'],
+      executablePath: executablePath(),
     });
   }
   customPuppeteerProvided && warnIfNotUsingStealth(browser);

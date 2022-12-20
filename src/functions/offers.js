@@ -1,5 +1,6 @@
 // puppeteer-extra is a drop-in replacement for puppeteer,
 // it augments the installed puppeteer with plugin functionality
+const { executablePath } = require('puppeteer');
 const puppeteer = require('puppeteer-extra');
 // add stealth plugin and use defaults (all evasion techniques)
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
@@ -71,6 +72,7 @@ const offersByUrl = async (url, optionsGiven = {}) => {
     browser = await puppeteer.launch({
       headless: !debug, // when debug is true => headless should be false
       args: ['--start-maximized'],
+      executablePath: executablePath(),
     });
   }
   customPuppeteerProvided && warnIfNotUsingStealth(browser);
@@ -95,7 +97,7 @@ const offersByUrl = async (url, optionsGiven = {}) => {
   logs && console.log("extracting __wired__ variable");
   const html = await page.content();
   const __wired__ = _parseWiredVariable(html);
-  
+
   // extract testnet
   const isTestnet = url.includes("testnets.opensea.io");
   logs && console.log("extracting if testnet detected... isTestnet = " + isTestnet);

@@ -23,9 +23,9 @@
   "author": "dcts",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1",
-    "puppeteer": "^13.5.1",
-    "puppeteer-extra": "^3.2.3",
-    "puppeteer-extra-plugin-stealth": "^2.9.0"
+    "axios": "^1.2.1",
+    "puppeteer": "^19.4.1",
+    "puppeteer-extra": "^3.3.4",
+    "puppeteer-extra-plugin-stealth": "^2.11.1"
   }
 }

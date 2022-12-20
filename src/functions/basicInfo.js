@@ -5,7 +5,10 @@ const axios = require("axios");
  * no puppeteer is involved here
  */
 const basicInfo = async (slug) => {
-  const response = await axios.get(`https://api.opensea.io/collection/${slug}`);
+  const response = await axios.get(
+    `https://api.opensea.io/collection/${slug}`,
+    { headers: { "Accept-Encoding": "gzip,deflate,compress" } }
+  );
   const collectionObj = response.data.collection;
   const stats = _getStats(collectionObj);
   return {
