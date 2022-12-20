@@ -19,7 +19,7 @@ const dict = {};
 function fetchOffers(dict) {
   const cardsNodeList = document.querySelectorAll(".Asset--anchor");
   const cardsArray = Array.prototype.slice.call(cardsNodeList);
-  cardsArray.forEach(card => {
+  cardsArray.forEach((card) => {
     const floorPrice = _extractFloorPrice(card);
     const name = _extractName(card);
     const tokenId = _extractTokenId(card);
@@ -33,23 +33,21 @@ function fetchOffers(dict) {
         floorPrice: floorPrice,
         displayImageUrl: displayImageUrl,
         offerUrl: offerUrl,
-      }
+      };
     }
   });
 }
 function _extractName(card) {
   try {
     return card.querySelector(".AssetCardFooter--name").innerText;
-  } catch (err) {
-
-  }
+  } catch (err) {}
 }
 function _extractTokenId(card) {
   try {
     const href = card.getAttribute("href") || "";
     const tokenId = href.split("/").slice(-1).pop();
     return tokenId === "" ? undefined : Number(tokenId); // catch case where tokenId is empty string
-  } catch(err) {
+  } catch (err) {
     return undefined;
   }
 }
@@ -57,28 +55,33 @@ function _extractOfferUrl(card) {
   try {
     const href = card.getAttribute("href");
     return href ? `https://opensea.io${href}` : undefined;
-  } catch(err) {
+  } catch (err) {
     return undefined;
   }
 }
 function _extractDisplayImageUrl(card) {
   try {
     return card.querySelector("img").src;
-  } catch(err) {
+  } catch (err) {
     return undefined;
   }
 }
 function _extractFloorPrice(card) {
   try {
     const priceSection = card.querySelector(".AssetCardFooter--price-amount");
-    const currencyIsEth = Boolean(priceSection.querySelector(".Price--eth-icon"));
-    const floorPriceStr = priceSection.querySelectorAll(":scope > div")[1].textContent.split(",").join("."); // replace comma with dot
+    const currencyIsEth = Boolean(
+      priceSection.querySelector(".Price--eth-icon")
+    );
+    const floorPriceStr = priceSection
+      .querySelectorAll(":scope > div")[1]
+      .textContent.split(",")
+      .join("."); // replace comma with dot
     const floorPrice = Number(floorPriceStr);
     return {
       amount: floorPrice,
       currency: currencyIsEth ? "ETH" : "unknown",
-    }
-  } catch(err) {
+    };
+  } catch (err) {
     return undefined;
   }
 }

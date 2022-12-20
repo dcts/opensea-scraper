@@ -27,5 +27,19 @@
     "puppeteer": "^19.4.1",
     "puppeteer-extra": "^3.3.4",
     "puppeteer-extra-plugin-stealth": "^2.11.1"
+  },
+  "devDependencies": {
+    "lint-staged": "^13.1.0",
+    "prettier": "2.8.1",
+    "simple-pre-commit": "^1.2.1"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "simple-pre-commit": "npx lint-staged",
+  "lint-staged": {
+    "**/*.{js,ts,json,md}": [
+      "prettier --write"
+    ]
   }
 }

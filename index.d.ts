@@ -20,9 +20,9 @@ interface IOffer {
 }
 
 interface IOptions {
-  debug: boolean,
-  logs: boolean,
-  sort: boolean,
+  debug: boolean;
+  logs: boolean;
+  sort: boolean;
 }
 
 declare module "opensea-scraper" {
@@ -30,14 +30,14 @@ declare module "opensea-scraper" {
   export function rankings(
     type?: string,
     chain?: string,
-    options?: IOptions,
+    options?: IOptions
   ): Promise<IRanking[]>;
   export function offers(
     slug: string,
-    options?: IOptions,
+    options?: IOptions
   ): Promise<IOfferRturnValue>;
   export function offersByUrl(
     url: string,
-    options?: IOptions,
+    options?: IOptions
   ): Promise<IOfferRturnValue>;
 }

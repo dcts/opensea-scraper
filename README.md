@@ -1,16 +1,16 @@
 # Opensea Scraper
 
 **DISCLAIMER**: You can get accurate realtime floor prices from this official opensea API endpoint: `https://api.opensea.io/api/v1/collection/{slug}/stats`:
+
 ```js
 const axios = require("axios");
 
 async function getFloorPrice(slug) {
   try {
     const url = `https://api.opensea.io/collection/${slug}/stats`;
-    const response = await axios.get(
-      url,
-      { headers: { "Accept-Encoding": "gzip,deflate,compress" } },
-    );
+    const response = await axios.get(url, {
+      headers: { "Accept-Encoding": "gzip,deflate,compress" },
+    });
     return response.data.stats.floor_price;
   } catch (err) {
     console.log(err);
@@ -37,6 +37,7 @@ npm install opensea-scraper
 ![slug](https://user-images.githubusercontent.com/44790691/131232333-b79c50d7-606c-480a-9816-9d750ab798ff.png)
 
 ℹ **`options`** is an object with the following keys
+
 - **`debug`** [Boolean] launches chromium locally, omits headless mode (default: `false`)
 - **`logs`** [Boolean]: display logs in the console (default: `false`)
 - **`sort`** [Boolean]: sorts the offers by lowest to highest (default: `true`)
@@ -56,7 +57,7 @@ const options = {
   sort: true,
   additionalWait: 0,
   browserInstance: undefined,
-}
+};
 
 // get basic info (from the opensea API)
 const basicInfo = await OpenseaScraper.basicInfo(slug);
@@ -66,17 +67,18 @@ const basicInfo = await OpenseaScraper.basicInfo(slug);
 // and offerUrl
 // scrapes only the first 20 offers from opensea.
 let result = await OpenseaScraper.offers(slug, options);
-console.dir(result, {depth: null}); // result object contains keys `stats` and `offers`
+console.dir(result, { depth: null }); // result object contains keys `stats` and `offers`
 
 // get offers from opensea using a custom link
 // Opensea supports encoding filtering in the URL so
 // this method is helpful for getting a specific asset
 // (for example floor price for a deadfellaz with
 // a purple fur trait)
-let url = "https://opensea.io/collection/deadfellaz?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Body&search[stringTraits][0][values][0]=Purple%20Fur&search[toggles][0]=BUY_NOW";
+let url =
+  "https://opensea.io/collection/deadfellaz?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Body&search[stringTraits][0][values][0]=Purple%20Fur&search[toggles][0]=BUY_NOW";
 result = await OpenseaScraper.offersByUrl(url, options);
 // result object contains keys `stats` and `offers`
-console.dir(result, {depth: null});
+console.dir(result, { depth: null });
 
 // DISCLAIMER: FUNCTION `offersByScrolling`
 // IS CURRENTLY NOT WORKING (!!!) see [issue#36](https://github.com/dcts/opensea-scraper/issues/36)
@@ -94,7 +96,7 @@ console.dir(result, {depth: null});
 let resultSize = 40;
 result = await OpenseaScraper.offersByScrolling(slug, resultSize, options);
 // result object contains keys `stats` and `offers`
-console.dir(result, {depth: null});
+console.dir(result, { depth: null });
 
 // DISCLAIMER: FUNCTION `offersByScrollingByUrl`
 // IS CURRENTLY NOT WORKING (!!!) see [issue#36](https://github.com/dcts/opensea-scraper/issues/36)
@@ -107,11 +109,12 @@ console.dir(result, {depth: null});
 // a purple fur trait)
 // IMPORTANT: if you need less than 20 offers,
 // please use the function `offersByUrl()` instead
-url = "https://opensea.io/collection/deadfellaz?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Body&search[stringTraits][0][values][0]=Purple%20Fur&search[toggles][0]=BUY_NOW";
+url =
+  "https://opensea.io/collection/deadfellaz?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Body&search[stringTraits][0][values][0]=Purple%20Fur&search[toggles][0]=BUY_NOW";
 resultSize = 40;
 result = await OpenseaScraper.offersByScrollingByUrl(url, resultSize, options);
 // result object contains keys `stats` and `offers`
-console.dir(result, {depth: null});
+console.dir(result, { depth: null });
 
 // scrape all slugs, names and ranks from the top collections from the rankings page
 // "type" is one of the following:
@@ -129,26 +132,28 @@ const ranking = await OpenseaScraper.rankings(type, chain, options);
 ### Debugging
 
 To investigate an issue turn on logs and debug mode (`debug: true` and `logs: true`):
+
 ```js
 const result = await OpenseaScraper.offers("treeverse", {
   debug: true,
-  logs: true
+  logs: true,
 });
 ```
 
 ### Bring your own puppeteer
 
 if you want to customize the settings for your puppeteer instance you can add your own puppeteer browser instance in the options. **🚧 IMPORTANT**: I recommend using stealth plugin as otherwise you most likely won't be able to scrape opensea. If you find a way without using the stealth plugin please report in the form of an issue!
+
 ```js
-const puppeteer = require('puppeteer-extra');
+const puppeteer = require("puppeteer-extra");
 // add stealth plugin and use defaults (all evasion techniques)
-const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 puppeteer.use(StealthPlugin());
 
 const myPuppeteerInstance = await puppeteer.launch(myCustomSettings);
 
 const result = await OpenseaScraper.offer("cool-cats-nft", {
-  browserInstance: myPuppeteerInstance
+  browserInstance: myPuppeteerInstance,
 });
 ```
 
@@ -159,11 +164,15 @@ npm run demo
 ```
 
 ## Run local console / REPL
+
 To test the functions in an REPL node environment that has `OpenseaScraper` service preloaded simply run:
+
 ```bash
 node --experimental-repl-await -i -e "$(< init-dev-env.js)"
 ```
+
 I recommend saving an alias:
+
 ```bash
 alias consl='node --experimental-repl-await -i -e "$(< init-dev-env.js)"';
 ```
@@ -173,6 +182,7 @@ alias consl='node --experimental-repl-await -i -e "$(< init-dev-env.js)"';
 Open PR or issue if you would like to have more features added.
 
 ## Donations 🙏
+
 ```
 Thanks for your support!
 BTC: bc1qq5qn96ahlqjxfxz2n9l20kem8p9nsz5yzz93f7
@@ -180,5 +190,6 @@ ETH: 0x3e4503720Fb8f4559Ecf64BE792b3100722dE940
 ```
 
 # nftfloorprice.info 🔔
+
 Simple NFT floor price alerts. Easily track all your NFTs and receive realtime email alerts with: https://nftfloorprice.info<br><br>
 <a href="https://nftfloorprice.info"><img src="https://user-images.githubusercontent.com/44790691/140594412-b70d93d1-2278-4d27-abf9-74466bee0137.png"></a>

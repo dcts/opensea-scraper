@@ -1,13 +1,16 @@
 // puppeteer-extra is a drop-in replacement for puppeteer,
 // it augments the installed puppeteer with plugin functionality
-const { executablePath } = require('puppeteer');
-const puppeteer = require('puppeteer-extra');
+const { executablePath } = require("puppeteer");
+const puppeteer = require("puppeteer-extra");
 // add stealth plugin and use defaults (all evasion techniques)
-const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 puppeteer.use(StealthPlugin());
 
 // load helper function to detect stealth plugin
-const { warnIfNotUsingStealth, sleep } = require("../helpers/helperFunctions.js");
+const {
+  warnIfNotUsingStealth,
+  sleep,
+} = require("../helpers/helperFunctions.js");
 
 /**
  * Scrapes all collections from the Rankings page at https://opensea.io/rankings
@@ -18,7 +21,11 @@ const { warnIfNotUsingStealth, sleep } = require("../helpers/helperFunctions.js"
  *   browserInstance: browser instance created with puppeteer.launch() (bring your own puppeteer instance)
  * }
  */
-const rankings = async (type = "total", chain = undefined, optionsGiven = {}) => {
+const rankings = async (
+  type = "total",
+  chain = undefined,
+  optionsGiven = {}
+) => {
   const optionsDefault = {
     debug: false,
     logs: false,
@@ -35,7 +42,7 @@ const rankings = async (type = "total", chain = undefined, optionsGiven = {}) =>
   if (!customPuppeteerProvided) {
     browser = await puppeteer.launch({
       headless: !debug, // when debug is true => headless should be false
-      args: ['--start-maximized'],
+      args: ["--start-maximized"],
       executablePath: executablePath(),
     });
   }
@@ -47,11 +54,14 @@ const rankings = async (type = "total", chain = undefined, optionsGiven = {}) =>
   await page.goto(url);
 
   logs && console.log("...🚧 waiting for cloudflare to resolve");
-  await page.waitForSelector('.cf-browser-verification', {hidden: true});
+  await page.waitForSelector(".cf-browser-verification", { hidden: true });
 
   // additional wait?
   if (additionalWait > 0) {
-    logs && console.log(`...additional wait active, waiting ${additionalWait / 1000} seconds...`);
+    logs &&
+      console.log(
+        `...additional wait active, waiting ${additionalWait / 1000} seconds...`
+      );
     await sleep(additionalWait);
   }
 
@@ -65,7 +75,7 @@ const rankings = async (type = "total", chain = undefined, optionsGiven = {}) =>
   const top100 = _parseNextDataVarible(__NEXT_DATA__);
   logs && console.log(`🥳 DONE. Total ${top100.length} Collections fetched: `);
   return top100;
-}
+};
 
 function _parseNextDataVarible(__NEXT_DATA__) {
   const extractFloorPrice = (windowCollectionStats, extractionMethod) => {
@@ -74,16 +84,16 @@ function _parseNextDataVarible(__NEXT_DATA__) {
         return {
           amount: Number(windowCollectionStats.floorPrice.unit),
           currency: windowCollectionStats.floorPrice.symbol.toUpperCase(),
-        }
+        };
       }
       return {
         amount: Number(windowCollectionStats.floorPrice.eth),
         currency: "ETH",
-      }
-    } catch(err) {
+      };
+    } catch (err) {
       return null;
     }
-  }
+  };
   const extractCollection = (node) => {
     return {
       name: node.name,
@@ -91,30 +101,33 @@ function _parseNextDataVarible(__NEXT_DATA__) {
       logo: node.logo,
       isVerified: node.isVerified,
       floorPrice: extractFloorPrice(node.windowCollectionStats),
-      floorPriceMultichain: extractFloorPrice(node.windowCollectionStats, "multichain"),
+      floorPriceMultichain: extractFloorPrice(
+        node.windowCollectionStats,
+        "multichain"
+      ),
       // statsV2: node.statsV2, // 🚧 comment back in if you need additional stats
       // windowCollectionStats: node.windowCollectionStats, // 🚧 comment back in if you need additional stats
     };
-  }
-  return __NEXT_DATA__.props.relayCache[0][1].json.data.rankings.edges.map(obj => extractCollection(obj.node));
+  };
+  return __NEXT_DATA__.props.relayCache[0][1].json.data.rankings.edges.map(
+    (obj) => extractCollection(obj.node)
+  );
 }
 
 function getUrl(type, chain) {
-  chainExtraQueryParameter = chain ? `&chain=${chain}` : ''
+  chainExtraQueryParameter = chain ? `&chain=${chain}` : "";
   if (type === "24h") {
     return `https://opensea.io/rankings?sortBy=one_day_volume${chainExtraQueryParameter}`;
-
   } else if (type === "7d") {
     return `https://opensea.io/rankings?sortBy=seven_day_volume${chainExtraQueryParameter}`;
-
   } else if (type === "30d") {
     return `https://opensea.io/rankings?sortBy=thirty_day_volume${chainExtraQueryParameter}`;
-
   } else if (type === "total") {
     return `https://opensea.io/rankings?sortBy=total_volume${chainExtraQueryParameter}`;
   }
 
-  throw new Error(`Invalid type provided. Expected: 24h,7d,30d,total. Got: ${type}`);
+  throw new Error(
+    `Invalid type provided. Expected: 24h,7d,30d,total. Got: ${type}`
+  );
 }
 module.exports = rankings;
-
